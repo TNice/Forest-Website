@@ -19,7 +19,7 @@ body {
 
 #navigation {
   height: 80vh;
-  width: 6vw;
+  width: 5vw;
   margin-top: 0vh;
   margin-left: 0vw;
   position: fixed;
@@ -31,8 +31,8 @@ body {
 }
 
 img.navImg {
-  height: 7vh;
-  width: 5vw;
+  height: 70%;
+  width: 100%;
   margin-bottom: 0.05vh;
   text-align: center;
 }
@@ -52,8 +52,9 @@ img.navImg.logo {
   padding: 0;
   height: 15vh;
   white-space: normal;
-  border-color: rgb(155, 155, 155);
-  font-size: 0.8vw;
+  border-color: rgba(175, 175, 175, 0.9);
+  font-size: 0.65vw;
+  background-color: rgba(215, 215, 215, 0.75);
 }
 
 .btn.navButton.top {
@@ -93,7 +94,7 @@ img.navImg.logo {
   margin-right: 0;
   margin-top: 0;
   float: right;
-  width: 25vw;
+  width: 20vw;
 }
 
 .row.main {
@@ -122,7 +123,7 @@ img.navImg.logo {
   width: 100%;
   height: 40vh;
   border-bottom-left-radius: 0.5vw;
-  background-color: rgba(195, 195, 195, 0.75);
+  background-color: rgba(195, 195, 195, 0.85);
 }
 
 .col-2.main {
@@ -146,9 +147,8 @@ img.navImg.logo {
 }
 
 button.button {
-  margin-top: 2vh;
-  height: 75%;
-  width: 11vw;
+  height: 20vh;
+  width: 100%;
   padding: 0;
   background-color: rgba(0, 0, 0, 0);
   border-style: solid;
@@ -156,6 +156,8 @@ button.button {
   border-width: 0;
   font-size: 2vh;
   word-wrap: normal;
+  margin: 0;
+  margin-bottom: 1vh;
 }
 
 button.button:hover {
@@ -163,17 +165,9 @@ button.button:hover {
   cursor: pointer;
 }
 
-button.button.right {
-  margin-left: 0.25vw;
-  margin-right: 1vw;
-}
-
-button.button.left {
-  margin-left: 1vw;
-  margin-right: 0.25vw;
-}
-
 .a-icon {
-  height: 10vh;
-  width: 10vw;
+  margin: 1.5vh;
+  margin-bottom: .5vh;
+  height: 70%;
+  width: 100%;
 }
