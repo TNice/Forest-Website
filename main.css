@@ -206,3 +206,17 @@ button.graph {
   transition: 0.2s;
   transition-delay: 0.1s;
 }
+
+#disturbanceNav {
+  transform: translateY(-2.13vh);
+  width: 0;
+  transition: 0.2s;
+  transition-delay: 0.1s;
+}
+
+#activitiesNav {
+  transform: translateY(43vh);
+  width: 0;
+  transition: 0.2s;
+  transition-delay: 0.1s;
+}

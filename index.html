@@ -45,6 +45,54 @@
                 document.getElementById("speciesNav").style.width = "0";
             }
         }
+        
+        function ShowDisturbanceNav() {
+            document.getElementById("disturbanceNav").style.width = "6vw";
+        }
+
+        //Used to hide disturbances when scrolling through 
+        function HideDisturbanceNavMain(elem) {
+            var overSpeciesMenu = false;
+            var sideLeft = closestEdge(elem);
+
+            if (selected != "disturbance" && sideLeft != "right") {
+                document.getElementById("disturbanceNav").style.width = "0";
+            }
+        }
+
+        //Used to hide disturbances when you leave the sub menu
+        function HideDisturbanceNavSub() {
+            var overSpeciesMenu = false;
+
+            if (selected != "disturbance") {
+                document.getElementById("disturbanceNav").style.width = "0";
+            }
+        }
+        
+        
+        function ShowActivitiesNav() {
+            document.getElementById("activitiesNav").style.width = "6vw";
+        }
+
+        //Used to hide human activities when scrolling through 
+        function HideActivitiesNavMain(elem) {
+            HideDisturbanceNavMain(elem);
+            var overSpeciesMenu = false;
+            var sideLeft = closestEdge(elem);
+
+            if (selected != "activities" && sideLeft != "right") {
+                document.getElementById("activitiesNav").style.width = "0";
+            }
+        }
+
+        //Used to hide human activities when you leave the sub menu
+        function HideActivitiesNavSub() {
+            var overSpeciesMenu = false;
+
+            if (selected != "activities") {
+                document.getElementById("activitiesNav").style.width = "0";
+            }
+        }
 
         function HideSsNavSub() {
             var overSpeciesMenu = false;
@@ -107,7 +155,7 @@
                                 </button>
                             </li>
                             <li class='nav-item'>
-                                <button class='nav-link btn navButton mid'>
+                                <button class='nav-link btn navButton mid' onmouseover="ShowDisturbanceNav()" onmouseleave="HideDisturbanceNavMain(this)">
                                     <img class='navImg' src='pictures/disturbance.png'>Disturbance</img>
                                 </button>
                             </li>
@@ -141,7 +189,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <div id='disturbanceNav' onmouseleave="HideDisturbaceNavSub()">
+                    <div id='disturbanceNav' onmouseleave="HideDisturbanceNavSub()">
                         <nav class='navbar main'>
                             <ul class='navbar-nav'>
                                 <li class='nav-item'>
@@ -155,7 +203,7 @@
                                     </button>
                                 </li>
                                 <li class='nav-item'>
-                                    <button class='nav-link btn navButton bottom'>
+                                    <button class='nav-link btn navButton bottom'onmouseover="ShowActivitiesNav()" onmouseleave="HideActivitiesNavMain(this)">
                                         <img class='navImg logo' src='logo.png'>Human Activities</img>
                                     </button>
                                 </li>
@@ -163,8 +211,29 @@
                         </nav>
                     </div>
                 </div>
+                    
                 <div id='sub-menu' class='col-2'>
-                    Test2
+                    <div id='activitiesNav' onmouseleave="HideActivitiesNavSub()">
+                        <nav class='navbar main'>
+                            <ul class='navbar-nav'>
+                                <li class='nav-item'>
+                                    <button class='nav-link btn navButton top'>
+                                        <img class='navImg logo' src='logo.png'>Harvest</img>
+                                    </button>
+                                </li>
+                                <li class='nav-item'>
+                                    <button class='nav-link btn navButton mid'>
+                                        <img class='navImg logo' src='logo.png'>Mining</img>
+                                    </button>
+                                </li>
+                                <li class='nav-item'>
+                                    <button class='nav-link btn navButton bottom'>
+                                        <img class='navImg logo' src='logo.png'>Hunting</img>
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
