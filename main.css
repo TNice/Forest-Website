@@ -170,7 +170,7 @@ button.button:hover {
 .a-icon {
   margin: 1.5vh;
   margin-top: 0vh;
-  margin-bottom: .5vh;
+  margin-bottom: 0.5vh;
   height: 70%;
   width: 100%;
 }
@@ -187,16 +187,21 @@ button.graph {
 }
 
 #sub-menu {
-  transform: translateX(6vw);
+  transform: translateX(5.9vw);
   padding: 0;
   width: 6vw;
   height: 100vh;
-  border-color: black;
-  border-style: solid;
 }
 
 #speciesNav {
-  transform: translateY(12.8vh);
+  transform: translateY(12.83vh);
+  width: 0;
+  transition: 0.2s;
+  transition-delay: 0.1s;
+}
+
+#disturbanceNav {
+  transform: translateY(-2.13vh);
   width: 0;
   transition: 0.2s;
   transition-delay: 0.1s;

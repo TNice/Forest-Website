@@ -46,6 +46,14 @@
             }
         }
 
+        function HideSsNavSub() {
+            var overSpeciesMenu = false;
+
+            if (selected != "species") {
+                document.getElementById("speciesNav").style.width = "0";
+            }
+        }
+
         function closestEdge(elem) {
             var elemBounding = elem.getBoundingClientRect();
 
@@ -128,6 +136,27 @@
                                 <li class='nav-item'>
                                     <button class='nav-link btn navButton bottom'>
                                         <img class='navImg logo' src='logo.png'>Biomass</img>
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div id='disturbanceNav' onmouseleave="HideDisturbaceNavSub()">
+                        <nav class='navbar main'>
+                            <ul class='navbar-nav'>
+                                <li class='nav-item'>
+                                    <button class='nav-link btn navButton top'>
+                                        <img class='navImg logo' src='logo.png'>Wind</img>
+                                    </button>
+                                </li>
+                                <li class='nav-item'>
+                                    <button class='nav-link btn navButton mid'>
+                                        <img class='navImg logo' src='logo.png'>Fire</img>
+                                    </button>
+                                </li>
+                                <li class='nav-item'>
+                                    <button class='nav-link btn navButton bottom'>
+                                        <img class='navImg logo' src='logo.png'>Human Activities</img>
                                     </button>
                                 </li>
                             </ul>
