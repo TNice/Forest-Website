@@ -173,6 +173,7 @@ button.button:hover {
   height: 70%;
   width: 100%;
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 .btn-group.graph {
@@ -200,6 +201,8 @@ Disturbance = 1
 */
 .species:hover+.sub-menu-0 {
   background-color: orange;
+=======
+>>>>>>> parent of 006e4c4... Statistic And Deep Anaylis Buttons Added
 =======
 >>>>>>> parent of 006e4c4... Statistic And Deep Anaylis Buttons Added
 }
