@@ -16,92 +16,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-    
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+
     <script src="main.js"></script>
-    
-    
-    <script>
-    $(document).ready(function(){
-  $('a[data-toggle=dropdown]').on('click', function(e){
-    //$(this).next('ul').show();
-
-    //console.log('click');
-    e.stopPropagation();
-    e.preventDefault();
-    $(this).parent().siblings().removeClass('open');
-    $(this).parent().toggleClass('open');
-  });
-  if($('.dropdown-menu').hasClass('open')){
-    console.log('visible');
-  }
-});
-    
-    </script>
-    
-    <style>
-    
-                    .caret-right {
-                        border-bottom: 4px solid transparent;
-                        border-top: 4px solid transparent;
-                        border-left: 4px solid;
-                        display: inline-block;
-                        height: 0;
-                        opacity: 0.3;
-                        vertical-align: top;
-                        width: 0;
-                        margin-top: 2px;
-                    }
-
-                    .dropdown-menu>li>a:hover{
-                background-color:rgba(216,216,216,1);
-                background-image:none;
-                color:#000;
-            }
-
-            .dropdown-submenu{
-                position:relative;
-            }
-            .dropdown-submenu>.dropdown-menu{
-                top:0;
-                left:100%;
-                margin-top:-6px;
-                margin-left:-1px;
-                -webkit-border-radius:0 6px 6px 6px;
-                -moz-border-radius:0 6px 6px 6px;
-                border-radius:0 6px 6px 6px;
-            }
-            .dropdown-submenu>a:after{
-                display:block;
-                content: " ";
-                float:right;
-                width:0;
-                height:0;
-                border-color:transparent;
-                border-style: solid;
-                border-width:5px 0 5px 5px;
-                border-left-color: #cccccc;
-                margin-top:5px;
-                margin-right: -10px;
-            }
-            .dropdown-submenu:hover>a:after{
-                border-left-color: #555;
-            }
-            .dropdown-submenu.pull-left{
-                float:none;
-            }
-            .dropdown-submenu.pull-left>.dropdown-menu{
-                left:100%;
-                margin-left:1-0px;
-                -webkit-border-radius:6px 0 6px 6px;
-                -moz-border-radius:6px 0 6px 6px;
-                border-radius:6px 0 6px 6px;
-            }
-    
-    </style>
 </head>
 
 <body>
@@ -116,15 +36,11 @@
                             </button>
                         </li>
                         <li class='nav-item dropdown'>
-                            <button class='nav-link btn navButton mid' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <button class='nav-link btn navButton mid' data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
                                 <img class='navImg' src='pictures/species.png'>Species</img>
                                 <b class="caret-right"></b>
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Growing Space</a></li>
-                                <li><a href="#">Basal Area</a></li>
-                                <li><a href="#">Biomass</a></li>
-                            </ul>
                         </li>
                         <li class='nav-item'>
                             <button class='nav-link btn navButton mid'>
@@ -132,27 +48,31 @@
                             </button>
                         </li>
                         <li class='nav-item'>
-                                <button class='nav-link btn navButton mid' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <img class='navImg' src='pictures/disturbance.png'>Disturbance</img>
-                                    <b class="caret-right"></b>
-                                </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Wind</a></li>
-                                <li><a href="#">Fire</a></li>
-                                <li class="dropdown dropdown-submenu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Human Activities</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Harvest</a></li>
-                                        <li><a href="#">Mining</a></li>
-                                        <li><a href="#">Hunting</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <button class='nav-link btn navButton mid' data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                <img class='navImg' src='pictures/disturbance.png'>Disturbance</img>
+                                <b class="caret-right"></b>
+                            </button>
                         </li>
                         <li class='nav-item'>
                             <button class='nav-link btn navButton bottom'>
                                 <img class='navImg' src='pictures/search.png'>Search</img>
                             </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class='sub-menu-container'>
+                <nav class='navbar main sub-menu-0'>
+                    <ul class='navbar-nav'>
+                        <li class='nav-item'>
+                            <button class='nav-link btn navButton sub-top'>Growing Space</button>
+                        </li>
+                        <li class='nav-item'>
+                            <button class='nav-link btn navButton sub-mid'>Basal Area</button>
+                        </li>
+                        <li class='nav-item'>
+                            <button class='nav-link btn navButton sub-bottom'>Biomass</button>
                         </li>
                     </ul>
                 </nav>
