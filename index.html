@@ -25,42 +25,123 @@
 </head>
 
 <body>
+    <script>
+        var selected = "";
+
+        function ShowSpeciesNav() {
+            document.getElementById("speciesNav").style.width = "6vw";
+        }
+
+        //Used to hide species when scrolling through 
+        function HideSpeciesNavMain(elem) {
+            var overSpeciesMenu = false;
+            var sideLeft = closestEdge(elem);
+
+            if (selected != "species" && sideLeft != "right") {
+                document.getElementById("speciesNav").style.width = "0";
+            }
+        }
+
+        //Used to hide species when you leave the sub menu
+        function HideSpeciesNavSub() {
+            var overSpeciesMenu = false;
+
+            if (selected != "species") {
+                document.getElementById("speciesNav").style.width = "0";
+            }
+        }
+
+        function closestEdge(elem) {
+            var elemBounding = elem.getBoundingClientRect();
+
+            var elementLeftEdge = elemBounding.left;
+            var elementTopEdge = elemBounding.top;
+            var elementRightEdge = elemBounding.right;
+            var elementBottomEdge = elemBounding.bottom;
+
+            var mouseX = event.clientX;
+            var mouseY = event.clientY;
+
+            var topEdgeDist = Math.abs(elementTopEdge - mouseY);
+            var bottomEdgeDist = Math.abs(elementBottomEdge - mouseY);
+            var leftEdgeDist = Math.abs(elementLeftEdge - mouseX);
+            var rightEdgeDist = Math.abs(elementRightEdge - mouseX);
+
+            var min = Math.min(topEdgeDist, bottomEdgeDist, leftEdgeDist, rightEdgeDist);
+
+            switch (min) {
+                case leftEdgeDist:
+                    return "left";
+                case rightEdgeDist:
+                    return "right";
+                case topEdgeDist:
+                    return "top";
+                case bottomEdgeDist:
+                    return "bottom";
+            }
+        }
+    </script>
     <div class='row main'>
-        <div class='col-2 main'>
-            <div id='navigation'>
-                <nav class='navbar main'>
-                    <ul class='navbar-nav'>
-                        <li class='nav-item'>
-                            <button class='nav-link btn navButton top'>
-                                <img class='navImg logo' src='pictures/logo.png'>LEAF</img>
-                            </button>
-                        </li>
-                        <li class='nav-item dropdown'>
-                            <button class='nav-link btn navButton mid' data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">
-                                <img class='navImg' src='pictures/species.png'>Species</img>
-                                <b class="caret-right"></b>
-                            </button>
-                        </li>
-                        <li class='nav-item'>
-                            <button class='nav-link btn navButton mid'>
-                                <img class='navImg' src='pictures/carbonstock.png'>Carbon Stock</img>
-                            </button>
-                        </li>
-                        <li class='nav-item'>
-                            <button class='nav-link btn navButton mid' data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">
-                                <img class='navImg' src='pictures/disturbance.png'>Disturbance</img>
-                                <b class="caret-right"></b>
-                            </button>
-                        </li>
-                        <li class='nav-item'>
-                            <button class='nav-link btn navButton bottom'>
-                                <img class='navImg' src='pictures/search.png'>Search</img>
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
+        <div class='col-4 main'>
+            <div class='row main'>
+                <div id='navigation' class='col-2'>
+                    <nav class='navbar main'>
+                        <ul class='navbar-nav'>
+                            <li class='nav-item'>
+                                <button class='nav-link btn navButton top logo'>
+                                    <img class='navImg logo' src='pictures/logo.png'>LEAF</img>
+                                </button>
+                            </li>
+                            <li class='nav-item'>
+                                <button id='species' class='nav-link btn navButton mid' onmouseover="ShowSpeciesNav()"
+                                    onmouseleave="HideSpeciesNavMain(this)">
+                                    <img class='navImg' src='pictures/species.png'>Species</img>
+                                </button>
+                            </li>
+                            <li class='nav-item'>
+                                <button class='nav-link btn navButton mid'>
+                                    <img class='navImg' src='pictures/carbonstock.png'>Carbon Stock</img>
+                                </button>
+                            </li>
+                            <li class='nav-item'>
+                                <button class='nav-link btn navButton mid'>
+                                    <img class='navImg' src='pictures/disturbance.png'>Disturbance</img>
+                                </button>
+                            </li>
+                            <li class='nav-item'>
+                                <button class='nav-link btn navButton bottom'>
+                                    <img class='navImg' src='pictures/search.png'>Search</img>
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div id='sub-menu' class='col-2'>
+                    <div id='speciesNav' onmouseleave="HideSpeciesNavSub()">
+                        <nav class='navbar main'>
+                            <ul class='navbar-nav'>
+                                <li class='nav-item'>
+                                    <button class='nav-link btn navButton top'>
+                                        <img class='navImg logo' src='logo.png'>Growing Space</img>
+                                    </button>
+                                </li>
+                                <li class='nav-item'>
+                                    <button class='nav-link btn navButton mid'>
+                                        <img class='navImg logo' src='logo.png'>Basal Area</img>
+                                    </button>
+                                </li>
+                                <li class='nav-item'>
+                                    <button class='nav-link btn navButton bottom'>
+                                        <img class='navImg logo' src='logo.png'>Biomass</img>
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div id='sub-menu' class='col-2'>
+                    Test2
+                </div>
             </div>
             <div class='sub-menu-container'>
                 <nav class='navbar main sub-menu-0'>
@@ -78,7 +159,7 @@
                 </nav>
             </div>
         </div>
-        <div class='col-6 main'>
+        <div class='col-4 main'>
         </div>
         <div class='col-4 main'>
             <div class='analysis'>

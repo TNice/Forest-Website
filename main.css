@@ -19,7 +19,7 @@ body {
 
 #navigation {
   height: 80vh;
-  width: 5vw;
+  width: 100%;
   margin-top: 0vh;
   margin-left: 0vw;
   position: fixed;
@@ -47,7 +47,7 @@ img.navImg.logo {
 }
 
 .btn.navButton {
-  width: 8vw;
+  width: 6vw;
   margin: 0;
   padding: 0;
   height: 15vh;
@@ -61,10 +61,7 @@ img.navImg.logo {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-top-left-radius: 0;
-  border-top-right-radius: 0;
   border-bottom-color: rgb(185, 185, 185);
-  font-size: 3vh;
-  height: 13vh;
 }
 
 .btn.navButton.bottom {
@@ -81,12 +78,17 @@ img.navImg.logo {
   border-bottom-color: rgb(185, 185, 185);
 }
 
-.btn.navButton.top:hover {
+.btn.navButton.logo {
+  font-size: 3vh;
+  height: 13vh;
   cursor: default;
 }
 
-.mid:hover,
-.bottom:hover {
+.btn.navButton.logo:hover {
+  cursor: default;
+}
+
+.navButton:not(.logo):hover {
   background-color: rgb(185, 195, 185);
 }
 
@@ -172,8 +174,6 @@ button.button:hover {
   margin-bottom: .5vh;
   height: 70%;
   width: 100%;
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
 
 .btn-group.graph {
@@ -201,8 +201,20 @@ Disturbance = 1
 */
 .species:hover+.sub-menu-0 {
   background-color: orange;
-=======
->>>>>>> parent of 006e4c4... Statistic And Deep Anaylis Buttons Added
-=======
->>>>>>> parent of 006e4c4... Statistic And Deep Anaylis Buttons Added
+}
+
+#sub-menu {
+  transform: translateX(6vw);
+  padding: 0;
+  width: 6vw;
+  height: 100vh;
+  border-color: black;
+  border-style: solid;
+}
+
+#speciesNav {
+  transform: translateY(12.8vh);
+  width: 0;
+  transition: 0.2s;
+  transition-delay: 0.1s;
 }
