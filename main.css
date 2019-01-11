@@ -215,7 +215,7 @@ button.graph {
 }
 
 #activitiesNav {
-  transform: translateY(43vh);
+  transform: translateY(42.85vh);
   width: 0;
   transition: 0.2s;
   transition-delay: 0.1s;

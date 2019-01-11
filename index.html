@@ -72,16 +72,19 @@
         
         function ShowActivitiesNav() {
             document.getElementById("activitiesNav").style.width = "6vw";
+            document.getElementById("wind").style.borderTopRightRadius = "0";
+            document.getElementById("human").style.borderBottomRightRadius = "0";
         }
 
         //Used to hide human activities when scrolling through 
         function HideActivitiesNavMain(elem) {
-            HideDisturbanceNavMain(elem);
             var overSpeciesMenu = false;
             var sideLeft = closestEdge(elem);
 
             if (selected != "activities" && sideLeft != "right") {
                 document.getElementById("activitiesNav").style.width = "0";
+                document.getElementById("wind").style.borderTopRightRadius = "";
+                document.getElementById("human").style.borderBottomRightRadius = "";
             }
         }
 
@@ -193,7 +196,7 @@
                         <nav class='navbar main'>
                             <ul class='navbar-nav'>
                                 <li class='nav-item'>
-                                    <button class='nav-link btn navButton top'>
+                                    <button id='wind' class='nav-link btn navButton top'>
                                         <img class='navImg logo' src='logo.png'>Wind</img>
                                     </button>
                                 </li>
@@ -203,7 +206,7 @@
                                     </button>
                                 </li>
                                 <li class='nav-item'>
-                                    <button class='nav-link btn navButton bottom'onmouseover="ShowActivitiesNav()" onmouseleave="HideActivitiesNavMain(this)">
+                                    <button id='human' class='nav-link btn navButton bottom'onmouseover="ShowActivitiesNav()" onmouseleave="HideActivitiesNavMain(this)">
                                         <img class='navImg logo' src='logo.png'>Human Activities</img>
                                     </button>
                                 </li>
