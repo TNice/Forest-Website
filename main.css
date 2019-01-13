@@ -17,6 +17,8 @@ body {
   margin: 0%;
 }
 
+
+
 #navigation {
   height: 80vh;
   width: 100%;
@@ -46,25 +48,50 @@ img.navImg.logo {
   margin-right: 0.5vw;
 }
 
-.btn.navButton {
-  width: 6vw;
+.btn.subButton {
+  width: 5vw;
   margin: 0;
   padding: 0;
-  height: 15vh;
+  height: 13.05vh;
   white-space: normal;
   border-color: rgba(175, 175, 175, 0.9);
   font-size: 0.65vw;
   background-color: rgba(215, 215, 215, 0.75);
 }
 
-.btn.navButton.top {
+.btn.subButton1 {
+  width: 5vw;
+  margin: 0;
+  padding: 0;
+  height: 13.17vh;
+  white-space: normal;
+  border-color: rgba(175, 175, 175, 0.9);
+  font-size: 0.65vw;
+  background-color: rgba(215, 215, 215, 0.75);
+}
+
+.btn.navButton {
+  width: 5vw;
+  margin: 0;
+  padding: 0;
+  height: 13vh;
+  white-space: normal;
+  border-color: rgba(175, 175, 175, 0.9);
+  font-size: 0.65vw;
+  background-color: rgba(215, 215, 215, 0.75);
+}
+
+.btn.navButton.top,
+.btn.subButton.top,
+.btn.subButton1.top {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-top-left-radius: 0;
   border-bottom-color: rgb(185, 185, 185);
 }
 
-.btn.navButton.bottom {
+.btn.navButton.bottom,
+.btn.subButton.bottom {
   border-top-width: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -72,13 +99,24 @@ img.navImg.logo {
   border-bottom-left-radius: 0;
 }
 
-.btn.navButton.mid {
+.btn.subButton1.bottom {
+  border-top-width: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top-width: 0;
+}
+
+.btn.navButton.mid,
+.btn.subButton.mid,
+.btn.subButton1.mid {
   border-radius: 0;
   border-top-width: 0;
   border-bottom-color: rgb(185, 185, 185);
 }
 
-.btn.navButton.logo {
+.btn.navButton.logo,
+.btn.subButton.logo,
+.btn.subButton1.logo {
   font-size: 3vh;
   height: 13vh;
   cursor: default;
@@ -88,7 +126,8 @@ img.navImg.logo {
   cursor: default;
 }
 
-.navButton:not(.logo):hover {
+.navButton:not(.logo):hover,
+.btn.subButton:hover {
   background-color: rgb(185, 195, 185);
 }
 
@@ -187,35 +226,35 @@ button.graph {
 }
 
 #sub-menu {
-  transform: translateX(5.9vw);
+  transform: translateX(4.97vw);
+  padding: 0;
+  width: 6vw;
+  height: 100vh;
+}
+
+#sub-menu-1 {
+  transform: translateX(4.42vw);
   padding: 0;
   width: 6vw;
   height: 100vh;
 }
 
 #speciesNav {
-  transform: translateY(12.83vh);
+  transform: translateY(12.9vh);
   width: 0;
   transition: 0.2s;
   transition-delay: 0.1s;
 }
 
 #disturbanceNav {
-  transform: translateY(-2.13vh);
-  width: 0;
-  transition: 0.2s;
-  transition-delay: 0.1s;
-}
-
-#disturbanceNav {
-  transform: translateY(-2.13vh);
+  transform: translateY(-13.25vh);
   width: 0;
   transition: 0.2s;
   transition-delay: 0.1s;
 }
 
 #activitiesNav {
-  transform: translateY(42.85vh);
+  transform: translateY(51.85vh);
   width: 0;
   transition: 0.2s;
   transition-delay: 0.1s;
