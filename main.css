@@ -242,20 +242,20 @@ button.graph {
 #speciesNav {
   transform: translateY(12.9vh);
   width: 0;
-  transition: 0.2s;
+  transition: 0.1s;
   transition-delay: 0.1s;
 }
 
 #disturbanceNav {
   transform: translateY(-13.25vh);
   width: 0;
-  transition: 0.2s;
+  transition: 0.1s;
   transition-delay: 0.1s;
 }
 
 #activitiesNav {
   transform: translateY(51.85vh);
   width: 0;
-  transition: 0.2s;
+  transition: 0.1s;
   transition-delay: 0.1s;
 }
