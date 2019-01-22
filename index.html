@@ -140,12 +140,16 @@
             var element = document.getElementById("statButton");
             element.classList.add("active")
             document.getElementById("deepButton").classList.remove("active");
+            document.getElementById("statDiv").style.height = "";
+            document.getElementById("deepDiv").style.height = "0";
         }
         
         function activateDeepButton(){
             var element = document.getElementById("deepButton");
             element.classList.add("active");
             document.getElementById("statButton").classList.remove("active");
+            document.getElementById("statDiv").style.height = "0";
+            document.getElementById("deepDiv").style.height = "15vh";
         }
         
 
@@ -328,7 +332,7 @@
                                 <button id="deepButton" class='graph-button' onclick="activateDeepButton()">Deep</button>
                             </div>
                         </div>
-                        <div class='row statistic'>
+                        <div id="statDiv" class='row statistic'>
                             <div class="col-6 statistic">
                                 <img class='graph' src='pictures/bargraphicon.png'></img>
                             </div>
@@ -336,7 +340,7 @@
                                 <img class='graph' src='pictures/piecharticon.png'></img>
                             </div>
                         </div>
-                        <div class='row deep'>     
+                        <div id="deepDiv" class='row deep'>     
                             <img class='deepgraph' src='pictures/deepLogo.png'></img>
                         </div>
                     </div>
