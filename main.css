@@ -278,6 +278,19 @@ button.graph-button.active {
   padding: 0;
 }
 
+.row.deep {
+  height: 15vh;
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 0;
+  height: 0;
+}
+
+img.deepgraph {
+  width: 100%;
+  height: 95%;
+}
+
 .col-6.statistic {
   margin-bottom: 0.5vh;
   padding-left: .5vw;
