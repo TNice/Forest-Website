@@ -17,8 +17,6 @@ body {
   margin: 0%;
 }
 
-
-
 #navigation {
   height: 80vh;
   width: 100%;
@@ -228,11 +226,11 @@ button.graph {
   border-width: 1px;
 }
 
-button.graph:hover{
+button.graph:hover {
   background-color: rgb(185, 195, 185);
 }
 
-button.graph.active{
+button.graph.active {
   background-color: rgb(185, 195, 185);
 }
 
@@ -254,34 +252,30 @@ button.graph.active{
   transform: translateY(12.9vh);
   width: 0;
   transition: 0.1s;
-  transition-delay: 0.1s;
 }
 
 #disturbanceNav {
   transform: translateY(-13.25vh);
   width: 0;
   transition: 0.1s;
-  transition-delay: 0.1s;
 }
 
 #activitiesNav {
   transform: translateY(51.85vh);
   width: 0;
   transition: 0.1s;
-  transition-delay: 0.1s;
 }
 
-.parameters{
+.parameters {
   font-size: 0.8em;
 }
 
-.parameter-label{
+.parameter-label {
   margin-bottom: 0;
 }
 
-.row.statistic{
+.row.statistic {
   height: 10vh;
-  margin: .5vh;
+  margin: 0.5vh;
   padding: 0;
-
 }
