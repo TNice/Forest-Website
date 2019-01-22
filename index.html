@@ -136,6 +136,18 @@
             }
         }
         
+        function activateStatButton(){
+            var element = document.getElementById("statButton");
+            element.classList.add("active")
+            document.getElementById("deepButton").classList.remove("active");
+        }
+        
+        function activateDeepButton(){
+            var element = document.getElementById("deepButton");
+            element.classList.add("active");
+            document.getElementById("statButton").classList.remove("active");
+        }
+        
 
         function closestEdge(elem) {
             var elemBounding = elem.getBoundingClientRect();
@@ -312,8 +324,8 @@
                         <br>
                         <div class='row main'>
                             <div class='btn-group graph'>
-                                <button class='graph' style='border-right-width: 0;'>Statistic</button>
-                                <button class='graph'>Deep</button>
+                                <button id="statButton" class='graph' style='border-right-width: 0;' onclick="activateStatButton()">Statistic</button>
+                                <button id="deepButton" class='graph' onclick="activateDeepButton()">Deep</button>
                             </div>
                         </div>
                         <div class='row statistic'>
