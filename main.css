@@ -216,7 +216,7 @@ button.button:hover {
   width: 100%;
 }
 
-button.graph {
+button.graph-button {
   width: 50%;
   height: 4vh;
   -webkit-appearance: none;
@@ -224,13 +224,15 @@ button.graph {
   border-style: solid;
   border-color: rgb(185, 185, 185);
   border-width: 1px;
+  font-size: .9em;
+  margin-bottom: 1vh;
 }
 
-button.graph:hover {
+button.graph-button:hover {
   background-color: rgb(185, 195, 185);
 }
 
-button.graph.active {
+button.graph-button.active {
   background-color: rgb(185, 195, 185);
 }
 
@@ -266,29 +268,40 @@ button.graph.active {
   transition: 0.1s;
 }
 
-.parameters {
-  font-size: 0.8em;
-}
-
 .parameter-label {
   margin-bottom: 0;
 }
 
 .row.statistic {
-  height: 10vh;
+  height: 15vh;
   margin: 0.5vh;
   padding: 0;
+}
+
+.col-6.statistic {
+  margin-bottom: 0.5vh;
+  padding-left: .5vw;
+  padding-right: .5vw;
 }
 
 .col-6.parm-l {
   padding-left: 0.5vw;
   padding-right: 0.25vw;
+  font-size: 0.8em;
 }
 
 .col-6.parm-r {
   padding-left: 0.25vw;
   padding-right: 0.5vw;
+  font-size: 0.8em;
 }
+
+.graph {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
 
 .time {
   border-style: none;
