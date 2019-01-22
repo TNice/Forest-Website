@@ -279,3 +279,17 @@ button.graph.active {
   margin: 0.5vh;
   padding: 0;
 }
+
+.col-6.parm-l {
+  padding-left: 0.5vw;
+  padding-right: 0.25vw;
+}
+
+.col-6.parm-r {
+  padding-left: 0.25vw;
+  padding-right: 0.5vw;
+}
+
+.time {
+  border-style: none;
+}

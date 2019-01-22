@@ -98,6 +98,32 @@
             var overSpeciesMenu = false;
 
             if (selected != "activities") {
+                setTimeout(ShouldHideDisturbace(), 100);
+            }
+        }
+
+        function ShouldHideDisturbace(){
+            var x = event.clientX;
+            var y = event.clientY;
+
+            var elements = document.elementsFromPoint(x, y);
+
+            var shouldHide = true;
+            for(i = 0; i < elements.length; i++){
+                console.log(elements[i].id);
+                if(elements[i].id == "human"){
+                    shouldHide = false;
+                }
+            }
+
+            console.log(shouldHide);
+            if(shouldHide == true){
+                HideDisturbanceNavSub();
+                document.getElementById("activitiesNav").style.transition = "0.0s";
+                document.getElementById("activitiesNav").style.width = "0";
+            }
+            else{
+                document.getElementById("activitiesNav").style.transition = "0.1s";
                 document.getElementById("activitiesNav").style.width = "0";
             }
         }
@@ -159,7 +185,8 @@
                                 </button>
                             </li>
                             <li class='nav-item'>
-                                <button class='nav-link btn navButton mid' onmouseover="ShowDisturbanceNav()" onmouseleave="HideDisturbanceNavMain(this)">
+                                <button class='nav-link btn navButton mid' onmouseover="ShowDisturbanceNav()"
+                                    onmouseleave="HideDisturbanceNavMain(this)">
                                     <img class='navImg' src='pictures/disturbance.png'>Disturbance</img>
                                 </button>
                             </li>
@@ -212,7 +239,8 @@
                                     </button>
                                 </li>
                                 <li class='nav-item'>
-                                    <button id='human' class='nav-link btn subButton bottom'onmouseover="ShowActivitiesNav()" onmouseleave="HideActivitiesNavMain(this)">
+                                    <button id='human' class='nav-link btn subButton bottom' onmouseover="ShowActivitiesNav()"
+                                        onmouseleave="HideActivitiesNavMain(this)">
                                         <img class='navImg logo' src='logo.png'>Human Activities</img>
                                     </button>
                                 </li>
@@ -220,7 +248,7 @@
                         </nav>
                     </div>
                 </div>
-                    
+
                 <div id='sub-menu-1' class='col-2'>
                     <div id='activitiesNav' onmouseover="ShowDisturbanceNav()" onmouseleave="HideActivitiesNavSub() ">
                         <nav class='navbar main'>
@@ -272,14 +300,14 @@
                         </div>
                         <div class='row main'>
                             <div class='row main'>
-                                <div class='col-6'>
-                                    <label class='parameter-label'>Start Date:</label><input class='parameters' type="date">
+                                <div class='col-6 parm-l'>
+                                    <label class='parameter-label'>Start Date:</label><input class='time' type="date">
                                 </div>
-                                <div class='col-6'>
-                                    <label class='parameter-label'>End Date:</label><input class='parameters' type="date">
+                                <div class='col-6 parm-r'>
+                                    <label class='parameter-label'>End Date:</label><input class='time' type="date">
                                 </div>
                             </div>
-                            
+
                         </div>
                         <br>
                         <div class='row main'>
