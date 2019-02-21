@@ -27,6 +27,14 @@
             document.getElementById("speciesNav").style.width = "6vw";
         }
 
+        function CloseLogin(){
+            document.getElementById("login").style.visibility = "hidden"
+        }
+
+        function ShowLogin(){
+            document.getElementById("login").style.visibility = "visible"
+        }
+
         //Used to hide species when scrolling through 
         function HideSpeciesNavMain(elem) {
             var overSpeciesMenu = false;
@@ -213,7 +221,7 @@
                             </li>
                             <li class='nav-item'>
                                 <button id='search' class='nav-link btn navButton bottom'>
-                                    <img class='navImg' src='pictures/search.png'>Login</img>
+                                    <img class='navImg' src='pictures/userLogo.png' onclick="ShowLogin()">Login</img>
                                 </button>
                             </li>
                         </ul>
@@ -293,7 +301,31 @@
         <div class='col-4 main'>
             <div id='login'>
                 <div class='login-content'>
-                    <label class='login-header'>TEST</label>
+                    <div class='login-header'>
+                        Login
+                    </div>
+                    
+                    <div class='login-fields'>
+                        <form>
+                            <div class="input-group mb-3 input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Email</span>
+                                </div>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="input-group mb-3 input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Password</span>
+                                </div>
+                                <input type="password" class="form-control">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class='login-btn-group'>
+                        <button type='button' class='login-btn' onclick="CloseLogin()">Cancel</button>
+                        <button type='button' class='login-btn' style='float: right'>Login</button>
+                    </div>    
                 </div>
             </div>
         </div>

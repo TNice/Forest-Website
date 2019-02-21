@@ -321,20 +321,40 @@ img.deepgraph {
 
 div.login-content {
   height: 40vh;
-  background-color: orange;
+  background-color: rgb(195, 195, 195);
+  border-radius: 0.5vw;
 }
 
 .login-header {
+  width: 100%;
   text-align: center;
+  font-size: 4vh;
+  border-bottom-color: rgb(185, 185, 185);
+  border-bottom-style: solid;
+  background-color: rgb(165, 165, 165);
 }
 
-.login-field {
+.login-fields {
+  margin: 5vh;
 }
 
-.login-field-label {
+.login-btn {
+  -webkit-appearance: none;
+  border: none;
+  margin: 0;
+  width: 50%;
+  height: 7vh;
+  background-color: rgb(165, 165, 165);
+  border-style: solid;
+  border-color: rgb(195, 195, 195);
+}
+
+.login-btn:hover {
+  background-color: rgb(145, 145, 145);
 }
 
 #login {
   margin-top: 30vh;
   margin-bottom: 30vh;
+  visibility: hidden;
 }
