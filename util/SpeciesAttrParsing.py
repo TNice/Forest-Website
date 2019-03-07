@@ -1,12 +1,17 @@
 import sys, random, math
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 timeInc = 2
 regionArea = 900
 labels = 'Pine', 'Cedar', 'Red Oak', 'White Oak', 'Hickory', 'Maple', 'Elm','pseudosp'
 values = []
 explode = (0, 0, 0, 0, 0, 0, 0, 0)
+
+N = 9
+GSOValues = []
+ind = np.arange(N)
+width = 0.5
 
 class Species:
     trees = []
@@ -119,8 +124,11 @@ def LoadFile():
 def GSO(step):
     result = 0
     for s in array:
-        result += s.GrowSpace(step)
+        grow = s.GrowSpace(step)
+        GSOValues.append(grow)
+        result += grow
 
+    GSOValues.append(result)
     return result
 
 LoadFile()
@@ -130,4 +138,13 @@ print("Total GSO = " + str(GSO(2)))
 fig1, ax1 = plt.subplots()
 ax1.pie(values, explode=explode, labels=labels, autopct='%1.1f%%', shadow=False, startangle=90)
 ax1.axis('equal')
+plt.show()
+
+fig1, ax1 = plt.subplots()
+plot = plt.bar(ind,GSOValues, width)
+
+plt.title('Title')
+plt.xticks(ind, (labels))
+plt.yticks(np.arange(0, 1, .05))
+fig1.autofmt_xdate()
 plt.show()
