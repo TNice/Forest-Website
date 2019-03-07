@@ -1,11 +1,12 @@
 import sys, random, math
-import plotly.plotly as py
-import plotly.graph_objs as go
+import matplotlib.pyplot as plt
+
 
 timeInc = 2
 regionArea = 900
-labels = []
+labels = 'Pine', 'Cedar', 'Red Oak', 'White Oak', 'Hickory', 'Maple', 'Elm','pseudosp'
 values = []
+explode = (0, 0, 0, 0, 0, 0, 0, 0)
 
 class Species:
     trees = []
@@ -62,7 +63,6 @@ numTree = 0
 def GenerateTrees():
     for s in array:
         numTree = random.randint(500, 900)
-        labels.append(s.Name)
         values.append(numTree)
         for i in range(numTree):
             s.trees.append(Tree(s, random.randint(0, int(s.Longevity)//timeInc)))
@@ -127,6 +127,7 @@ LoadFile()
 GenerateTrees()
 print("Total GSO = " + str(GSO(2)))
 
-
-trace = go.Pie(labels=labels, values=values)
-py.iplot([trace], filename='numTree-pie_chart')
+fig1, ax1 = plt.subplots()
+ax1.pie(values, explode=explode, labels=labels, autopct='%1.1f%%', shadow=False, startangle=90)
+ax1.axis('equal')
+plt.show()
