@@ -1,4 +1,6 @@
 import sys, random, math
+import plotly.plotly as py
+import plotyly.graph_objs as go
 
 timeInc = 2
 regionArea = 900
@@ -54,10 +56,10 @@ class Tree:
         self.Species = species
         self.AgeCohort = age
     
-
+numTree = 0
 def GenerateTrees():
     for s in array:
-        for i in range(random.randint(500, 900)):
+        for i in range(numTree = random.randint(500, 900)):
             s.trees.append(Tree(s, random.randint(0, int(s.Longevity)//timeInc)))
 
 array = []
@@ -119,3 +121,12 @@ def GSO(step):
 LoadFile()
 GenerateTrees()
 print("Total GSO = " + str(GSO(2)))
+
+labels[]
+values[]
+for i in range(0, len(array):
+    labels.append[array[i].Name]
+    values.append[numTree]
+
+trace = go.Pie(labels=labels, values=values)
+py.iplot([trace], filename='numTree-pie_chart')
