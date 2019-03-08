@@ -1,4 +1,4 @@
 <?php
-    $test = exec("test.py");
-    echo $test;
+    $test = exec("SpeciesAttrParsing.py");
+    echo($test);
 ?>

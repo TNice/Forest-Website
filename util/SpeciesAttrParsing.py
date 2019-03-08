@@ -1,10 +1,11 @@
 import sys, random, math
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt, mpld3
 import numpy as np
 
 timeInc = 2
 regionArea = 900
-labels = 'Pine', 'Cedar', 'Red Oak', 'White Oak', 'Hickory', 'Maple', 'Elm','pseudosp'
+pieLabels = 'Pine', 'Cedar', 'Red Oak', 'White Oak', 'Hickory', 'Maple', 'Elm','Pseudosp'
+barLabels = 'Pine', 'Cedar', 'Red Oak', 'White Oak', 'Hickory', 'Maple', 'Elm','Pseudosp', 'Region'
 values = []
 explode = (0, 0, 0, 0, 0, 0, 0, 0)
 
@@ -49,7 +50,7 @@ class Species:
             dbh, numberTrees = self.NumberTreesInDiameterGroup(i, timestep)
             result += ((dbh / 10) ** 1.605) * numberTrees * (1/(int(self.MaxStandDensity) * regionArea))
             
-        print(self.Name + ": " + str(result))
+        #print(self.Name + ": " + str(result))
         return result
 
     def DBH(self, ageCohort, timestep):
@@ -113,7 +114,7 @@ def LoadFile():
                 
             array.append(Species(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8],
                                      parts[9], parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16]))
-            
+          
     finally:
         f.close()
     ##    for i in array:
@@ -133,18 +134,22 @@ def GSO(step):
 
 LoadFile()
 GenerateTrees()
-print("Total GSO = " + str(GSO(2)))
+gsoResult = GSO(2)
+#print("Total GSO = " + str(gsoResult))
+
 
 fig1, ax1 = plt.subplots()
-ax1.pie(values, explode=explode, labels=labels, autopct='%1.1f%%', shadow=False, startangle=90)
+ax1.pie(values, explode=explode, labels=pieLabels, autopct='%1.1f%%', shadow=False, startangle=90)
 ax1.axis('equal')
-plt.show()
+plt.savefig('graphs/pie.png')
 
 fig1, ax1 = plt.subplots()
 plot = plt.bar(ind,GSOValues, width)
 
 plt.title('Title')
-plt.xticks(ind, (labels))
+plt.xticks(ind, (barLabels))
 plt.yticks(np.arange(0, 1, .05))
 fig1.autofmt_xdate()
-plt.show()
+plt.savefig('graphs/bar.png')
+
+print("DONE")

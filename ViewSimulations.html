@@ -1,0 +1,23 @@
+<script>
+    function Simulate() {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("pie").src = "util/graphs/pie.png";
+                document.getElementById("bar").src = "util/graphs/bar.png";
+            }
+        };
+        xmlhttp.open("GET", "util/SuccesionAnalysis.php", true);
+        xmlhttp.send();
+    }
+</script>
+
+<body>
+
+    <img id='pie' src=''>
+
+    <img id='bar' src=''>
+
+
+    <button type="button" style='height:4vh;width:6vw' onclick="Simulate()">Simulate</button>
+</body>
