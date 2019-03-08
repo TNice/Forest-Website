@@ -1,8 +1,13 @@
 <script>
     function Simulate() {
         var key = Math.random(1000, 9999).toString();
+        
+        document.getElementById("pie").style.visibility = 'visible';
+        document.getElementById("bar").style.visibility = 'visible';
+
         document.getElementById("pie").src = "pictures/loading.png";
         document.getElementById("bar").src = "pictures/loading.png";
+        
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -16,11 +21,12 @@
 </script>
 
 <body>
-
-    <img id='pie' src=''>
-
-    <img id='bar' src=''>
-
-
     <button type="button" style='height:4vh;width:6vw' onclick="Simulate()">Simulate</button>
+
+    <div>
+        <img id='pie' style='height:15vw;height:15vw;visibility:hidden;' src=''>
+    </div>
+    <div>   
+        <img id='bar' style='height:15vw;height:15vw;visibility:hidden;' src=''>
+    </div>
 </body>
