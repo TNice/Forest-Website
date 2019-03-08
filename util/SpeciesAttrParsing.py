@@ -1,6 +1,7 @@
 import sys, random, math
 import matplotlib.pyplot as plt
 import numpy as np
+import RemoveFiles as rf
 
 timeInc = 2 #timestep for simulation
 regionArea = 900 #region area of our single cell test space (30m x 30m)
@@ -144,6 +145,8 @@ def GSO(step):
 LoadFile()
 GenerateTrees()
 gsoResult = GSO(2)
+
+rf.ClearFolder('graphs')
 
 if len(sys.argv) == 2:
     pieFile = "graphs/pie" + sys.argv[1] + ".png"
