@@ -1,13 +1,16 @@
 <script>
     function Simulate() {
+        var key = Math.random(1000, 9999).toString();
+        document.getElementById("pie").src = "pictures/loading.png";
+        document.getElementById("bar").src = "pictures/loading.png";
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("pie").src = "util/graphs/pie.png";
-                document.getElementById("bar").src = "util/graphs/bar.png";
+                document.getElementById("pie").src = "util/graphs/pie" + key + ".png";
+                document.getElementById("bar").src = "util/graphs/bar" + key + ".png";
             }
         };
-        xmlhttp.open("GET", "util/SuccesionAnalysis.php", true);
+        xmlhttp.open("GET", "util/SuccesionAnalysis.php?key=" + key, true);
         xmlhttp.send();
     }
 </script>
