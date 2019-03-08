@@ -96,7 +96,7 @@ def is_number(s):
 #parses the SpeciesAttrInput file format into the species array. (will modify for database once the database is ready)
 def LoadFile():
     try:
-        f = open("uploads/test.txt")
+        f = open("uploads/species.dat")
             
         for line in f:
             if '#' in line:
@@ -148,11 +148,12 @@ gsoResult = GSO(2)
 
 rf.ClearFolder('graphs')
 
+#adds key to the file path to allow for reloading the pictures in web browser with out reloading web page
 if len(sys.argv) == 2:
     pieFile = "graphs/pie" + sys.argv[1] + ".png"
     barFile = "graphs/bar" + sys.argv[1] + ".png"
 
-#creates .png files of the graphs
+#creates matplotlib graphs and save them as .pngs
 fig1, ax1 = plt.subplots()
 ax1.pie(values, explode=explode, labels=pieLabels, autopct='%1.1f%%', shadow=False, startangle=90)
 ax1.axis('equal')
@@ -166,5 +167,6 @@ plt.xticks(ind, (barLabels))
 plt.yticks(np.arange(0, 1, .05))
 fig1.autofmt_xdate()
 plt.savefig(barFile)
+#end matplotlib graphs
 
 print("DONE")

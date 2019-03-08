@@ -1,6 +1,7 @@
 <script>
     function Simulate() {
-        var key = Math.random(1000, 9999).toString();
+        var date = new Date();
+        var key = Math.floor(date.getTime() / 1000).toString();
         
         document.getElementById("pie").style.visibility = 'visible';
         document.getElementById("bar").style.visibility = 'visible';
