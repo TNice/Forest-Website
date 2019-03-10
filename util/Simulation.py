@@ -2,6 +2,7 @@ import sys, random, math
 import matplotlib.pyplot as plt
 import numpy as np
 import RemoveFiles as rf
+import python.FileParser as FileParser
 
 timeInc = 2 #timestep for simulation
 regionArea = 900 #region area of our single cell test space (30m x 30m)
@@ -95,6 +96,8 @@ def is_number(s):
 
 #parses the SpeciesAttrInput file format into the species array. (will modify for database once the database is ready)
 def LoadFile():
+    #FileParser.SpeciesAttr to be used once algorithums are refactored for the database
+    #FileParser.SpeciesAttr()
     try:
         f = open("uploads/species.dat")
             
@@ -146,7 +149,7 @@ LoadFile()
 GenerateTrees()
 gsoResult = GSO(2)
 
-rf.ClearFolder('graphs')
+rf.ClearFolder('graphs') #used to limit the pictures saved to computer at once. Could be removed if files are to be stored in a database.
 
 #adds key to the file path to allow for reloading the pictures in web browser with out reloading web page
 if len(sys.argv) == 2:
