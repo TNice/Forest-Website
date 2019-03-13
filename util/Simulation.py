@@ -70,7 +70,7 @@ class Species:
         a = 1 
         k = 1.5
         #end constants
-        return int(self.MaxDiameter) * math.exp(-a * math.exp( -k * (age / int(self.Longevity))))
+        return int(self.MaxDiameter) * math.exp(-a * math.exp(-k * (age / int(self.Longevity))))
         
 
 class Tree:
