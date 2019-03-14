@@ -42,7 +42,7 @@
             }
             
             #map{
-                height: 100% !important;
+                height: 75%;
                 position: relative;
             }
     </style>
@@ -52,12 +52,7 @@
 <body>
           <div id='map' style="max-height: none;max-width: none;">
     </div>
-    <script>
-        var body = document.body, html = document.documentElement;
-        var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-        document.getElementById('map').style.height = height + 'px';
-    
-    </script>
+  
     <script src="JavaScript/background.js"></script>
         <div class='row main' id='transform'>
             <div class='col-4 main'>

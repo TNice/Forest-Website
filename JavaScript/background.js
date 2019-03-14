@@ -1,4 +1,8 @@
-// don't forget to add gmaps-heatmap.js
+var map;
+
+function loadMap(){
+    
+    // don't forget to add gmaps-heatmap.js
 var myLatlng = new google.maps.LatLng(25.6586, -80.3568);
 // map options,
 var myOptions = {
@@ -34,3 +38,9 @@ var testData = {
 };
 
 heatmap.setData(testData);
+}
+
+google.maps.event.addDomListener(window, "load", loadMap);
+
+
+
