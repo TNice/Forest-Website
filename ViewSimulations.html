@@ -1,33 +1,29 @@
-<script>
-    function Simulate() {
-        var date = new Date();
-        var key = Math.floor(date.getTime() / 1000).toString();
-        
-        document.getElementById("pie").style.visibility = 'visible';
-        document.getElementById("bar").style.visibility = 'visible';
-
-        document.getElementById("pie").src = "pictures/loading.png";
-        document.getElementById("bar").src = "pictures/loading.png";
-        
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("pie").src = "util/graphs/pie" + key + ".png";
-                document.getElementById("bar").src = "util/graphs/bar" + key + ".png";
-            }
-        };
-        xmlhttp.open("GET", "util/SuccesionAnalysis.php?key=" + key, true);
-        xmlhttp.send();
-    }
-</script>
-
-<body>
-    <button type="button" style='height:4vh;width:6vw' onclick="Simulate()">Simulate</button>
-
-    <div>
-        <img id='pie' style='height:15vw;height:15vw;visibility:hidden;' src=''>
-    </div>
-    <div>   
-        <img id='bar' style='height:15vw;height:15vw;visibility:hidden;' src=''>
-    </div>
-</body>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    
+    <script src="JavaScript/heatmap.js-2.0.5/build/heatmap.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-EB-j36StKM9IMw-tGENgfjLVk0K-6w0"></script>
+    <script src="JavaScript/heatmap.js-2.0.5/plugins/gmaps-heatmap/gmaps-heatmap.js"></script>
+    <script src='JavaScript/background.js'></script>
+  </body>
+</html>
