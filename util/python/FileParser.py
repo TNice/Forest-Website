@@ -1,4 +1,4 @@
-import SqlHandler as sql
+import python.SqlHandler as sql
 
 
 #checks is a string is a number

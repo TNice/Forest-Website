@@ -10,33 +10,25 @@
  // heatmap layer
  heatmap = new HeatmapOverlay(map, {
    // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-   "radius": 15,
+   "radius": 5,
    "maxOpacity": 1,
+   "minOpacity": .25,
    // scales the radius based on map zoom
    "scaleRadius": false,
-   // if set to false the heatmap uses the global maximum for colorization
-   // if activated: uses the data maximum within the current map boundaries 
-   //   (there will always be a red spot with useLocalExtremas true)
    "useLocalExtrema": true,
-   // which field name in your data represents the latitude - default "lat"
+   "gradient":{
+     '.25': 'rgba(0,26,0,1)',
+     '.5': 'rgba(0,128,0,1)',
+     '.95': 'rgba(0,255,0,1)'
+   },
    latField: 'lat',
-   // which field name in your data represents the longitude - default "lng"
    lngField: 'lng',
-   // which field name in your data represents the data value - default "value"
-   valueField: 'count'
+   valueField: 'gso'
  });
+ 
 
- var testData = {
-   max: 8,
-   data: [{
-     lat: 24.6408,
-     lng: 46.7728,
-     count: 3
-   }, {
-     lat: 50.75,
-     lng: -1.55,
-     count: 1
-   }]
- };
+jQuery.getJSON("util/results/gsoData.json", function(data){
+  console.log(data);
+  heatmap.setData(data);
+});
 
- heatmap.setData(testData);

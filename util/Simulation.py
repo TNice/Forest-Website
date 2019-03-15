@@ -3,43 +3,55 @@ import matplotlib.pyplot as plt
 import numpy as np
 import RemoveFiles as rf
 import python.FileParser as FileParser
-
-timeInc = 2 #timestep for simulation
+import json
 
 species = []
+regions = []
 
 class Region:
-    def __init__(self, area, speciesNum, treeNum)
+    def __init__(self, area, speciesNum, treeNum, lat, long):
         self.regionArea = area
-        self.speciesArray = GenerateSpecies(self, speciesNum)
+        self.speciesArray = self.GenerateSpecies(speciesNum)
         self.numTree = treeNum
-        self.trees = GenerateTrees()
+        self.trees = self.GenerateTrees()
+        self.lat = lat
+        self.long = long
 
     def GenerateSpecies(self, num):
         array = []
         for i in range(1, num):
-            sindex = random.randint(0, num - 1)
+            sindex = random.randint(0, len(species) - 1)
+            while species[sindex] in array:
+                sindex = random.randint(0, num - 1)
             array.append(species[sindex])
         return array
     
     def GenerateTrees(self):
         array = []
+        treesLeft = self.numTree
+        treeDispersalConst = 2
+        i = 0
         for s in self.speciesArray:
-            numTreeInSpecies = random.randint(500, 900)
+            numTreeInSpecies = random.randint(self.numTree // (len(self.speciesArray) + treeDispersalConst), self.numTree // len(self.speciesArray))
+            if numTreeInSpecies > treesLeft or i >= len(self.speciesArray):
+                numTreeInSpecies = treesLeft
+                        
             for i in range(numTreeInSpecies):
                 array.append(Tree(s, random.randint(0, int(s.Longevity)//timeInc)))
+            
+            i += 1
 
         return array
 
     #Calculates The Number of Trees in a diameter group (currently using the age cohort to group since DBH is determined by age)
     def NumberTreesInDiameterGroup(self, species, age, timestep):
         num = 0;
-        for tree in trees:
-            if tree.species == species:
+        for tree in self.trees:
+            if tree.Species.Name == species.Name:
                 if tree.AgeCohort == age:
                     num += 1
-
-        return self.DBH(age, timestep), num #returns the DBH of the group along with the number of trees in the group
+        
+        return self.DBH(species, age, timestep), num #returns the DBH of the group along with the number of trees in the group
 
     #DBH for species according to user guide formula
     def DBH(self, species, ageCohort, timestep, a = 1, k = 1.5):
@@ -51,17 +63,18 @@ class Region:
     def GrowSpaceSpecies(self, species, timestep):
         result = 0
         for i in range(1, int(species.Longevity)//timestep):
-            dbh, numberTrees = self.NumberTreesInDiameterGroup(i, species, timestep)
-            result += ((dbh / 10) ** 1.605) * numberTrees * (1/(int(species.MaxStandDensity) * regionArea))
+            dbh, numberTrees = self.NumberTreesInDiameterGroup(species, i, timestep)
+            #print(numberTrees)
+            result += ((dbh / 10) ** 1.605) * numberTrees * (1/(int(species.MaxStandDensity) * self.regionArea))
             
-        #print(self.Name + ": " + str(result))
+        #print(species.Name + ": " + str(result))
         return result
 
     #GSO for the region according to user guide formula. Also extracting species GSOs here for graphs
     def GSO(self, step):
         result = 0
         for s in self.speciesArray:
-            grow = s.GrowSpace(step)
+            grow = self.GrowSpaceSpecies(s, step)
             result += grow
             
         return result
@@ -92,6 +105,11 @@ class Tree:
     def __init__(self, species, age):
         self.Species = species
         self.AgeCohort = age
+
+
+timeInc = 2 #timestep for simulation
+                                    
+
 
 #checks if string is a number
 def is_number(s):
@@ -134,16 +152,42 @@ def LoadFile():
 
             #print(parts)
                 
-            speciesArray.append(Species(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8],
+            species.append(Species(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8],
                                      parts[9], parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16]))
           
     finally:
         f.close()
     
 
+def RunSimulation():
+    regions.append(Region(900, 3, 8260, 38.911184, -92.314280))
+    regions.append(Region(900, 5, 8913, 42.273490, -83.203992))
+    regions.append(Region(900, 7, 9200, 33.567136, -112.050912))
+    regions.append(Region(900, 2, 7360, 47.497116, -122.384001))
 
+    data = {}
+    data['max'] = 1
+    data['data'] = []
+    i = 0;
+    print("Creating Json...")
+    for r in regions:
+        gso = r.GSO(timeInc)
+        data['data'].append({
+            'lat': r.lat,
+            'lng': r.long,
+            'gso': gso
+        })
+        string = "..." + str(int((i / len(regions)) * 100)) + "%" 
+        print(string)
+        i += 1
+    
+    with open('results/gsoData.json', 'w') as outfile:
+        print("Writing: results/gsoData.json")
+        json.dump(data, outfile)
+        print("JSON COMPLETE")
 
 LoadFile()
-#transform: translateY(-100vh)
+RunSimulation()
+
 
 print("DONE")

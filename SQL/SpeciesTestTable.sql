@@ -17,3 +17,9 @@ MaxSdi int,
 TotSeed int,
 Carbonco float
 );
+
+create table RegionData(
+    lat float;
+    long float;
+    gso float;
+);
