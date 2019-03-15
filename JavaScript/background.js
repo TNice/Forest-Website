@@ -1,13 +1,17 @@
  // don't forget to add gmaps-heatmap.js
- var myLatlng = new google.maps.LatLng(25.6586, -80.3568);
+ var myLatlng = new google.maps.LatLng(38.917724, -92.092734);
  // map options,
  var myOptions = {
-  zoom: 3,
+  zoom: 5,
+  maxZoom: 10,
+  minZoom: 3,
   center: myLatlng,
+  disableDefaultUI: true,
   mapTypeControl: false,
   streetViewControl: false,
-  scaleControl: true,
-  zoomControl: true,
+  scaleControl: false,
+  gestureHandling: 'greedy',
+  zoomControl: false,
   zoomControlOptions: {
     style: google.maps.ZoomControlStyle.LARGE 
   },
@@ -15,6 +19,24 @@
  };
  // standard map
  map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+ var drawingManager = new google.maps.drawing.DrawingManager({
+  //drawingMode: google.maps.drawing.OverlayType.MARKER,
+  drawingControl: true,
+  drawingControlOptions: {
+    position: google.maps.ControlPosition.TOP_CENTER,
+    drawingModes: ['circle', 'rectangle']
+  },
+  circleOptions: {
+    fillColor: '#555555',
+    fillOpacity: 0.35,
+    strokeWeight: 0,
+    clickable: false,
+    editable: false,
+    zIndex: 1
+  }
+});
+drawingManager.setMap(map);
  // heatmap layer
  heatmap = new HeatmapOverlay(map, {
    // radius should be small ONLY if scaleRadius is true (or small radius is intended)
@@ -38,5 +60,20 @@
 jQuery.getJSON("util/results/gsoData1.json", function(data){
   console.log(data);
   heatmap.setData(data);
+});
+
+google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon) {
+  var coordinates = polygon.getPath().getArray();
+  console.log("Polygon Cords: " + coordinates);
+});
+
+google.maps.event.addListener(drawingManager, 'circlecomplete', function (circle) {
+  var bounds = circle.getBounds();
+  console.log(bounds);
+});
+
+google.maps.event.addListener(drawingManager, 'rectanglecomplete', function (rectangle) {
+  var coords = rectangle.getBounds();
+  console.log("Rectangle Cords: " + coords);
 });
 
