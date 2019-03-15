@@ -372,3 +372,11 @@ div.login-content {
   position: relative;
   z-index: 6;
 }
+
+.no-mouse{
+  pointer-events: none;
+}
+
+ul, .analysis{
+  pointer-events: all;
+}

@@ -2,8 +2,16 @@
  var myLatlng = new google.maps.LatLng(25.6586, -80.3568);
  // map options,
  var myOptions = {
-   zoom: 3,
-   center: myLatlng
+  zoom: 3,
+  center: myLatlng,
+  mapTypeControl: false,
+  streetViewControl: false,
+  scaleControl: true,
+  zoomControl: true,
+  zoomControlOptions: {
+    style: google.maps.ZoomControlStyle.LARGE 
+  },
+  mapTypeId: google.maps.MapTypeId.ROADMAP
  };
  // standard map
  map = new google.maps.Map(document.getElementById("map"), myOptions);
