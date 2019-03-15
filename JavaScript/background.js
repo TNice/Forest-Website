@@ -27,7 +27,7 @@
  });
  
 
-jQuery.getJSON("util/results/gsoData.json", function(data){
+jQuery.getJSON("util/results/gsoData1.json", function(data){
   console.log(data);
   heatmap.setData(data);
 });

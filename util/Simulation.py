@@ -2,7 +2,7 @@ import sys, random, math
 import matplotlib.pyplot as plt
 import numpy as np
 import RemoveFiles as rf
-import python.FileParser as FileParser
+#mport python.FileParser as FileParser
 import json
 
 species = []
@@ -78,6 +78,10 @@ class Region:
             result += grow
             
         return result
+    
+    def AgeTrees(self):
+        for tree in self.trees:
+            tree.AgeCohort += 1
 
 class Species: 
     #all attributes are from SpeciesAttrInput file in the user guide
@@ -107,7 +111,7 @@ class Tree:
         self.AgeCohort = age
 
 
-timeInc = 2 #timestep for simulation
+timeInc = 5 #timestep for simulation
                                     
 
 
@@ -159,35 +163,43 @@ def LoadFile():
         f.close()
     
 
-def RunSimulation():
+def RunSimulation(length=1):
     regions.append(Region(900, 3, 8260, 38.911184, -92.314280))
     regions.append(Region(900, 5, 8913, 42.273490, -83.203992))
     regions.append(Region(900, 7, 9200, 33.567136, -112.050912))
     regions.append(Region(900, 2, 7360, 47.497116, -122.384001))
 
+    year = 1
     data = {}
     data['max'] = 1
     data['data'] = []
-    i = 0;
-    print("Creating Json...")
-    for r in regions:
-        gso = r.GSO(timeInc)
-        data['data'].append({
-            'lat': r.lat,
-            'lng': r.long,
-            'gso': gso
-        })
-        string = "..." + str(int((i / len(regions)) * 100)) + "%" 
-        print(string)
-        i += 1
+    while year <= length:
+        i = 0;
+        print("Creating Json For Year " + str(year) + "...")
+        for r in regions:
+            gso = r.GSO(timeInc)
+            data['data'].append({
+                'lat': r.lat,
+                'lng': r.long,
+                'gso': gso
+            })
+            string = "..." + str(int((i / len(regions)) * 100)) + "%" 
+            print(string)
+            i += 1
+        
+        with open("results/gsoData" + str(year) +".json", 'w') as outfile:
+            print("Writing: results/gsoData.json")
+            json.dump(data, outfile)
+            print("JSON COMPLETE")
+
+        for r in regions:
+            r.AgeTrees()
+        year += 1
     
-    with open('results/gsoData.json', 'w') as outfile:
-        print("Writing: results/gsoData.json")
-        json.dump(data, outfile)
-        print("JSON COMPLETE")
 
 LoadFile()
-RunSimulation()
+rf.ClearFolder("results")
+RunSimulation(3)
 
 
 print("DONE")
