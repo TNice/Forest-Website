@@ -141,31 +141,9 @@ def LoadFile():
         f.close()
     
 
+
+
 LoadFile()
-GenerateTrees()
-gsoResult = GSO(2)
-
-rf.ClearFolder('graphs') #used to limit the pictures saved to computer at once. Could be removed if files are to be stored in a database.
-
-#adds key to the file path to allow for reloading the pictures in web browser with out reloading web page
-if len(sys.argv) == 2:
-    pieFile = "graphs/pie" + sys.argv[1] + ".png"
-    barFile = "graphs/bar" + sys.argv[1] + ".png"
-
-#creates matplotlib graphs and save them as .pngs
-fig1, ax1 = plt.subplots()
-ax1.pie(values, explode=explode, labels=pieLabels, autopct='%1.1f%%', shadow=False, startangle=90)
-ax1.axis('equal')
-plt.savefig(pieFile)
-
-fig1, ax1 = plt.subplots()
-plot = plt.bar(ind,GSOValues, width)
-
-plt.title('Title')
-plt.xticks(ind, (barLabels))
-plt.yticks(np.arange(0, 1, .05))
-fig1.autofmt_xdate()
-plt.savefig(barFile)
-#end matplotlib graphs
+#transform: translateY(-100vh)
 
 print("DONE")

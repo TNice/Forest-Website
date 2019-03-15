@@ -125,7 +125,12 @@ function activateStatButton() {
     element.classList.add("active")
     document.getElementById("deepButton").classList.remove("active");
     document.getElementById("statDiv").style.height = "";
+    document.getElementById("statDiv").style.visibility = "visible";
     document.getElementById("deepDiv").style.height = "0";
+    document.getElementById("deepDiv").style.visibility = "hidden";
+    graphs.foreach(function (element) {
+        element.style.visibility = "visible";
+    });
 }
 
 function activateDeepButton() {
@@ -133,7 +138,13 @@ function activateDeepButton() {
     element.classList.add("active");
     document.getElementById("statButton").classList.remove("active");
     document.getElementById("statDiv").style.height = "0";
+    document.getElementById("statDiv").style.visibility = "hidden";
     document.getElementById("deepDiv").style.height = "15vh";
+    document.getElementById("deepDiv").style.visibility = "visible";
+    var graphs = document.getElementsByClassName('graph');
+    graphs.foreach(function (element) {
+        element.style.visibility = "hidden";
+    });
 }
 
 
