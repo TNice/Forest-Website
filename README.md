@@ -1,7 +1,8 @@
 # Forest-Website
 
 ## Current Tasks
-1. Refactor index.html so map is interactable
+1. Simulate more area to fill the heatmap
+2. Get the site to generate heatmap and update dynamicly
 
 ## Upcoming
 1. Data Stored and simulated from a database
