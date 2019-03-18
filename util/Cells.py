@@ -119,7 +119,7 @@ def GetCellsInSelectedRegion(latNW, longNW, latSE, longSE, size=3, varience=5):
             currentLong -= northSideLength
         currentLat -= westSideLength
 
-    with open('results/cellsGenerated', 'w') as outfile:  
+    with open('results/cellsGenerated.json', 'w') as outfile:  
         json.dump(cells, outfile)
 
     end = time.time()
