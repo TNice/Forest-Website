@@ -1,16 +1,15 @@
 import sys, random, math
-import matplotlib.pyplot as plt
-import numpy as np
 import RemoveFiles as rf
+import Constants as const
 #mport python.FileParser as FileParser
 import json
 
 species = []
-regions = []
+cells = []
 
-class Region:
+class Cell:
     def __init__(self, area, speciesNum, treeNum, lat, long):
-        self.regionArea = area
+        self.cellArea = area
         self.speciesArray = self.GenerateSpecies(speciesNum)
         self.numTree = treeNum
         self.trees = self.GenerateTrees()
@@ -65,12 +64,12 @@ class Region:
         for i in range(1, int(species.Longevity)//timestep):
             dbh, numberTrees = self.NumberTreesInDiameterGroup(species, i, timestep)
             #print(numberTrees)
-            result += ((dbh / 10) ** 1.605) * numberTrees * (1/(int(species.MaxStandDensity) * self.regionArea))
+            result += ((dbh / 10) ** 1.605) * numberTrees * (1/(int(species.MaxStandDensity) * self.cellArea))
             
         #print(species.Name + ": " + str(result))
         return result
 
-    #GSO for the region according to user guide formula. Also extracting species GSOs here for graphs
+    #GSO for the cell according to user guide formula. Also extracting species GSOs here for graphs
     def GSO(self, step):
         result = 0
         for s in self.speciesArray:
@@ -162,12 +161,45 @@ def LoadFile():
     finally:
         f.close()
     
+#Input lat and long at the center of the cell and area in m^2 (default is 900m^2). Output the corner boundries of the cell.
+def GetCellBoundries(lat, long, area=900):
+    sideLength = math.sqrt(area)
+    latOffset = sideLength / const.RADIUS_EARTH
+    longOffset = sideLength / (const.RADIUS_EARTH * math.cos(math.pi * lat / 180))
+
+    cords={}
+    cords['NE'] = []
+    latNE = lat + (latOffset * 180 / math.pi / 2)
+    longNE = long - (longOffset * 180 / math.pi / 2)
+    cords['NE'].append(latNE)
+    cords['NE'].append(longNE)
+
+    cords['NW'] = []
+    latNW = lat + (latOffset * 180 / math.pi / 2)
+    longNW = long + (longOffset * 180 / math.pi / 2)
+    cords['NW'].append(latNW)
+    cords['NW'].append(longNW)
+
+    cords['SE'] = []
+    latSE = lat - (latOffset * 180 / math.pi / 2)
+    longSE = long - (longOffset * 180 / math.pi / 2)
+    cords['SE'].append(latSE)
+    cords['SE'].append(longSE)
+
+    cords['SW'] = []
+    latSW = lat - (latOffset * 180 / math.pi / 2)
+    longSW = long + (longOffset * 180 / math.pi / 2)
+    cords['SW'].append(latSW)
+    cords['SW'].append(longSW)
+    
+    return cords
+
 
 def RunSimulation(length=1):
-    regions.append(Region(900, 3, 8260, 38.911184, -92.314280))
-    regions.append(Region(900, 5, 8913, 42.273490, -83.203992))
-    regions.append(Region(900, 7, 9200, 33.567136, -112.050912))
-    regions.append(Region(900, 2, 7360, 47.497116, -122.384001))
+    cells.append(Cell(900, 3, 8260, 38.911184, -92.314280))
+    cells.append(Cell(900, 5, 8913, 42.273490, -83.203992))
+    cells.append(Cell(900, 7, 9200, 33.567136, -112.050912))
+    cells.append(Cell(900, 2, 7360, 47.497116, -122.384001))
 
     year = 1
     data = {}
@@ -176,14 +208,14 @@ def RunSimulation(length=1):
     while year <= length:
         i = 0;
         print("Creating Json For Year " + str(year) + "...")
-        for r in regions:
-            gso = r.GSO(timeInc)
+        for c in cells:
+            gso = c.GSO(timeInc)
             data['data'].append({
-                'lat': r.lat,
-                'lng': r.long,
+                'lat': c.lat,
+                'lng': c.long,
                 'gso': gso
             })
-            string = "..." + str(int((i / len(regions)) * 100)) + "%" 
+            string = "..." + str(int((i / len(cells)) * 100)) + "%" 
             print(string)
             i += 1
         
@@ -192,14 +224,13 @@ def RunSimulation(length=1):
             json.dump(data, outfile)
             print("JSON COMPLETE")
 
-        for r in regions:
-            r.AgeTrees()
+        for c in cells:
+            c.AgeTrees()
         year += 1
     
 
 LoadFile()
 rf.ClearFolder("results")
 RunSimulation(3)
-
 
 print("DONE")
