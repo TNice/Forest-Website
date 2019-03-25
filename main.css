@@ -30,6 +30,48 @@ body {
   padding: 0;
 }
 
+.simulation-box{
+  position: absolute;
+  width: 15vw;
+  height: 30vh;
+  background-color: darkgoldenrod;
+}
+
+.title{
+  height: 10%;
+  width: 15vw;
+  font-size: 3vh;
+  text-align: center;
+  margin-top: 1vh;
+  border-bottom-color: grey;
+  border-bottom-width: .3vh;
+  margin-bottom: 1vh;
+}
+
+.simulation-input{
+  margin-top: 2vh;
+  margin-right: 1vw;
+  float: right;
+  width: 100%;
+  height: 2vh;
+}
+
+.simulate-button{
+  width: 80%;
+  height: 2.5vh;
+  margin-top: 5vh;
+}
+
+.simulation-label{
+  margin-top: 2vh;
+  margin-right: 1vw;
+  margin-bottom: 0;
+  float: left;
+  width: 100%;
+  text-align: center;
+  font-size: 1.75vh;
+}
+
 img.navImg {
   height: 70%;
   width: 100%;
