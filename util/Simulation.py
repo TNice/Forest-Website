@@ -2,7 +2,7 @@ import sys, random, math
 import RemoveFiles as rf
 import Constants as const
 #mport python.FileParser as FileParser
-import json
+import json, Cells
 
 species = []
 cells = []
@@ -161,19 +161,22 @@ def LoadFile():
     finally:
         f.close()
 
-def RunSimulation(length=1):
-    cells.append(Cell(900, 3, 8260, 38.911184, -92.314280))
-    cells.append(Cell(900, 5, 8913, 42.273490, -83.203992))
-    cells.append(Cell(900, 7, 9200, 33.567136, -112.050912))
-    cells.append(Cell(900, 2, 7360, 47.497116, -122.384001))
+def GetCells():
+    cellResults = Cells.GetCellsInSelectedRegion(nwLat, nwLng, seLat,seLng, size, variance)
+    area = cellResults['northSide'] * cellResults['westSide']
+    center = Cells.GetCellCenter()
 
+    for cell in cellResults['cells']:
+        cells.append(Cell(area, random.randint(2, 5), random.randint(7000, 9000), center[0], center[1])
+
+def RunSimulation(length=1):
     year = 1
     data = {}
     data['max'] = 1
     data['data'] = []
     while year <= length:
         i = 0;
-        print("Creating Json For Year " + str(year) + "...")
+        #print("Creating Json For Year " + str(year) + "...")
         for c in cells:
             gso = c.GSO(timeInc)
             data['data'].append({
@@ -182,21 +185,29 @@ def RunSimulation(length=1):
                 'gso': gso
             })
             string = "..." + str(int((i / len(cells)) * 100)) + "%" 
-            print(string)
+            #print(string)
             i += 1
         
         with open("results/gsoData" + str(year) +".json", 'w') as outfile:
             print("Writing: results/gsoData.json")
             json.dump(data, outfile)
-            print("JSON COMPLETE")
+            #print("JSON COMPLETE")
 
         for c in cells:
             c.AgeTrees()
         year += 1
     
+if len(sys.argv) == 8:
+    timestep = sys.argv[1]
+    size = sys.argv[2]
+    variance = sys.argv[3]
+    nwLat = sys.argv[4]
+    nwLng = sys.argv[5]
+    seLat = sys.argv[6]
+    seLng = sys.argv[7]
+    GetCells()
+    RunSimulation()
+    print("Done")
 
-LoadFile()
-rf.ClearFolder("results")
-RunSimulation(3)
-
-print("DONE")
+else:
+    print("Invalid Arguments")

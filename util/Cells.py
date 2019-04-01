@@ -3,6 +3,7 @@ import Constants as const
 import json
 import time
 
+
 #Input lat and long at the center of the cell and area in m^2 (default is 900m^2). Output the corner boundries of the cell.
 def GetCellBoundries(lat, long, area=900):
     sideLength = math.sqrt(area)
@@ -36,12 +37,17 @@ def GetCellBoundries(lat, long, area=900):
     
     return cords
 
-def GetCellsInDrawnRegion():
+def GetCellCenter():
+    lat = (seLat - nwLat) / 2
+    lng = (seLng - nwLng) / 2
+    return (lat, lng)
+
+def GetCellsInDrawnRegion(nwLat, nwLng, seLat, seLng):
     return 0
     #no idea how to start. Needs to generate the cells of the region in the drawn polly gone 
 
-#size(side length) and varience are in meters
-def GetCellsInSelectedRegion(latNW, longNW, latSE, longSE, size=3, varience=5):
+#Returns dictionary{northSide, westSide, cells},  size(side length) and varience are in meters
+def GetCellsInSelectedRegion(latNW, longNW, latSE, longSE, size=300, varience=5):
     start = time.time() #get start time for timing
     
     #Sets desiered lat and long offset for cells
@@ -91,45 +97,20 @@ def GetCellsInSelectedRegion(latNW, longNW, latSE, longSE, size=3, varience=5):
                 'lat':  currentLat,
                 'long': currentLong
             }
-            #cells[str(cellNum)]['NW'].append({"lat", currentLat})
-            #cells[str(cellNum)]['NW'].append({"long", currentLong})
-
-            cells[str(cellNum)]['NE'] = {
-                'lat':  currentLat,
-                'long': currentLong - northSideLength
-            }
-            #cells[str(cellNum)]['NE'].append({"lat", currentLat})
-            #cells[str(cellNum)]['NE'].append({"long", currentLong - northSideLength})
-
-            cells[str(cellNum)]['SW'] = {
-                'lat':  currentLat - westSideLength,
-                'long': currentLong
-            }
-            #cells[str(cellNum)]['SW'].append({"lat", currentLat - westSideLength})
-            #cells[str(cellNum)]['SW'].append({"long", currentLong})
 
             cells[str(cellNum)]['SE'] = {
                 'lat':  currentLat - westSideLength,
                 'long': currentLong - northSideLength
             }
-            #cells[str(cellNum)]['SE'].append({"lat", currentLat - westSideLength})
-            #cells[str(cellNum)]['SE'].append({"long", currentLong - northSideLength})
 
             cellNum += 1
             currentLong -= northSideLength
         currentLat -= westSideLength
 
-    with open('results/cellsGenerated.json', 'w') as outfile:  
-        json.dump(cells, outfile)
+##    with open('results/cellsGenerated.json', 'w') as outfile:  
+##        json.dump(cells, outfile)
 
     end = time.time()
     print(end - start)
     print(cellNum + 1)
-##    try:
-##        f = open("results/cellsGenerated", 'w')
-##        f.write(str(cells))
-##    finally:
-##        f.close()
-
-GetCellsInSelectedRegion(50, 50, 45, 45)
-
+    return {'northSide': northSideLength, 'westSide': westSideLength, 'cells': cells}

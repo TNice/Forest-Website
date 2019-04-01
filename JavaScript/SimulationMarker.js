@@ -1,7 +1,17 @@
-function SimulationMarker(latlng, map, args) {
+//Rectangle region = bounds. Use getSouthWest or getNorthEast Functions
+var nwlat = 0;
+var nwLng = 0;
+var seLat = 0;
+var seLng = 0;
+
+function SimulationMarker(latlng, map, args, nwlat, nwlng, selat, swlng) {
 	this.latlng = latlng;	
 	this.args = args;	
-	this.setMap(map);	
+    this.setMap(map);
+    nwLat = nwlat;
+    nwLng = nwlng;
+    seLat = selat;
+    seLng = swlng;
 }
 
 SimulationMarker.prototype = new google.maps.OverlayView();
@@ -55,14 +65,23 @@ SimulationMarker.prototype.draw = function() {
         inputs.className = 'col-6';
         
         timestepInput = document.createElement('input');
+        timestepInput.id = "timestep-input";
+        timestepInput.type = "number";
+        timestepInput.value = "0";
         timestepInput.className = 'simulation-input';
         inputs.appendChild(timestepInput);
 
         sizeInput = document.createElement('input');
+        sizeInput.id = "size-input";
+        sizeInput.type = "number";
+        sizeInput.value = "0";
         sizeInput.className = 'simulation-input';
         inputs.appendChild(sizeInput); 
         
         varInput = document.createElement('input');
+        varInput.id = "var-input";
+        varInput.type = "number";
+        varInput.value = "0";
         varInput.className = 'simulation-input';
         inputs.appendChild(varInput); 
         
@@ -70,14 +89,27 @@ SimulationMarker.prototype.draw = function() {
         simulateButton.className = 'simulate-button';
         simulateButton.innerText = "Simulate";
         simulateButton.addEventListener("click", function(event){
-            console.log("SIMULATE!");
+            let timestep = document.getElementById("timestep-input").value;
+            let size = document.getElementById("size-input").value;
+            let variance = document.getElementById("var-input").value;
+
+            console.log("SIMULATION INPUTS\nTimestep: " + timestep + "\nSize: " + size + "\nVariance: " + variance);
+
+            var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                }
+            };
+
+            xmlhttp.open("GET", "./util/Simulate.php?time=" + timestep + "&size=" + size + "&var=" + variance + "&nwLat=" + nwLat + "&nwLng=" + nwLng + "&seLat=" + seLat + "&seLng=" + seLng, true);
+            console.log("Runing Simulation");
+            xmlhttp.send();
         });
         inputs.appendChild(simulateButton);
 
         container.appendChild(labels);
-        container.appendChild(inputs);
-
-        
+        container.appendChild(inputs);       
         
         div.appendChild(container);
 
@@ -114,4 +146,11 @@ SimulationMarker.prototype.getPosition = function() {
 
 SimulationMarker.prototype.setPosition = function(latlng){
     this.latlng = latlng;
+};
+
+SimulationMarker.prototype.setBoundsCords = function(nwlat, nwlng, selat, swlng){
+    this.nwlat = nwlat;
+    this.nwlng = nwlng;
+    this.selat = selat;
+    this.selng = swlng;
 };

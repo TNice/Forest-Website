@@ -7,11 +7,12 @@
   minZoom: 3,
   center: myLatlng,
   disableDefaultUI: true,
+  disableDoubleClickZoom: true,
   mapTypeControl: false,
   streetViewControl: false,
   scaleControl: false,
   gestureHandling: 'greedy',
-  zoomControl: false,
+  zoomControl: true,
   mapTypeId: google.maps.MapTypeId.ROADMAP
  };
 
@@ -378,18 +379,16 @@ function LoadHeatMap(){
 }
 
 //creates the simulation panel.
-var overlay = new SimulationMarker(
-  null,//myLatlng,
-  null,//map,
-  {}
-)
+var overlay = null;
 
 LoadHeatMap();
 
 //Deals with drawing shaps on the map
 var shape = null;
 google.maps.event.addListener(drawingManager, "drawingmode_changed", function() {
-  overlay.setMap(null);
+  if(overlay != null){
+    overlay.setMap(null);
+  }
   if ((drawingManager.getDrawingMode() == google.maps.drawing.OverlayType.RECTANGLE || drawingManager.getDrawingMode() == google.maps.drawing.OverlayType.POLYGON)
     && (shape != null))
       shape.setMap(null);
@@ -406,9 +405,21 @@ google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event)
       var simulation = new google.maps.LatLng(bounds.getSouthWest().lat(), bounds.getNorthEast().lng());
       var zoom = new google.maps.LatLng(bounds.getSouthWest().lat() - 7, bounds.getNorthEast().lng());
       map.panTo(zoom);
-      overlay.setPosition(simulation);
-      overlay.setMap(map);
-     // map.setCenter(new google.maps.LatLng(bounds['ga']['j'], bound['ma']['j']))
+
+      console.log(bounds.getNorthEast().lat());
+      console.log(bounds.getSouthWest().lng()); 
+      console.log(bounds.getSouthWest().lat()); 
+      console.log(bounds.getNorthEast().lng());
+
+      overlay = new SimulationMarker(
+        simulation,
+        map,
+        {},
+        bounds.getNorthEast().lat(), 
+        bounds.getSouthWest().lng(), 
+        bounds.getSouthWest().lat(), 
+        bounds.getNorthEast().lng()
+      );
   }
   else if (event.type == google.maps.drawing.OverlayType.POLYGON) {
     if(shape != null)
@@ -419,17 +430,10 @@ google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event)
       drawingManager.setDrawingMode(null);
   }
 
-  ShowSimulation(event);
-
   document.getElementById("draw").style.backgroundColor = "rgba(0,0,0,0)";
   document.getElementById("select").style.backgroundColor = "rgba(0,0,0,0)";
 
 });
-
-function ShowSimulation(e){
-  e = window.event;
-  console.log(e.clientX + " " + e.clientY);
-}
 
 function clearDrawing(){
   shape.setMap(null);
