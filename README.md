@@ -4,6 +4,7 @@
 1. Simulate more area to fill the heatmap
 2. Get the site to generate heatmap and update dynamicly
 3. Fix analysis box formating
+4. Fix long initial load time
 
 ## Upcoming
 1. Data Stored and simulated from a database
