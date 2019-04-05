@@ -36,7 +36,7 @@ class Cell:
                 numTreeInSpecies = treesLeft
                         
             for i in range(numTreeInSpecies):
-                array.append(Tree(s, random.randint(0, int(s.Longevity)//timeInc)))
+                array.append(Tree(s, random.randint(0, int(s.Longevity)//timestep)))
             
             i += 1
 
@@ -110,8 +110,13 @@ class Tree:
         self.AgeCohort = age
 
 
-timeInc = 5 #timestep for simulation
-                                    
+timestep = 0
+size = 0
+variance = 0
+nwLat = 0
+nwLng = 0
+seLat = 0
+seLng = 0                        
 
 
 #checks if string is a number
@@ -167,7 +172,7 @@ def GetCells():
     center = Cells.GetCellCenter()
 
     for cell in cellResults['cells']:
-        cells.append(Cell(area, random.randint(2, 5), random.randint(7000, 9000), center[0], center[1])
+        cells.append(Cell(area, random.randint(2, 5), random.randint(7000, 9000), center[0], center[1]))
 
 def RunSimulation(length=1):
     year = 1
@@ -178,7 +183,7 @@ def RunSimulation(length=1):
         i = 0;
         #print("Creating Json For Year " + str(year) + "...")
         for c in cells:
-            gso = c.GSO(timeInc)
+            gso = c.GSO(timestep)
             data['data'].append({
                 'lat': c.lat,
                 'lng': c.long,

@@ -10,6 +10,12 @@
     
     $cmd = "Simulation.py ". $time . " " . $size . " " . $var . " " . $nwLat . " " . $nwLng . " " . $seLat . " " . $seLng;
 
-    $result = exec($cmd);
+    $result = shell_exec($cmd);
+    if($result == NULL){
+        $result = "Simulation Failed";
+    }else{
+        $result = "Done";
+    }
+    
     echo($result);
 ?>
