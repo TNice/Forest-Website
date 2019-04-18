@@ -177,3 +177,7 @@ function closestEdge(elem) {
             return "bottom";
     }
 }
+
+$(document).ready(function(){
+    Shiny.setInputValue("foo", "bar"); 
+});
