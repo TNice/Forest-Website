@@ -47,9 +47,9 @@ def GetCellsInDrawnRegion(nwLat, nwLng, seLat, seLng):
     #no idea how to start. Needs to generate the cells of the region in the drawn polly gone 
 
 #Returns dictionary{northSide, westSide, cells},  size(side length) and varience are in meters
-def GetCellsInSelectedRegion(latNW, longNW, latSE, longSE, size=300, varience=5):
+def GetCellsInSelectedRegion(latNW, longNW, latSE, longSE, size=100, varience=5):
     print("\nStart cell generation\n")
-    #start = time.time() #get start time for timing
+    start = time.time() #get start time for timing
     
     #Sets desiered lat and long offset for cells
     latOffset = size / const.RADIUS_EARTH
@@ -94,24 +94,30 @@ def GetCellsInSelectedRegion(latNW, longNW, latSE, longSE, size=300, varience=5)
     while currentLat > latSE:
         while currentLong > longSE:
             cells[str(cellNum)] = {}
-            cells[str(cellNum)]['NW'] = {
+            cells[str(cellNum)]['N'] = {
                 'lat':  currentLat,
+            }
+            cells[str(cellNum)]['W'] = {
                 'long': currentLong
             }
-
-            cells[str(cellNum)]['SE'] = {
+            cells[str(cellNum)]['S'] = {
                 'lat':  currentLat - westSideLength,
+            }
+            cells[str(cellNum)]['E'] = {
                 'long': currentLong - northSideLength
             }
 
             cellNum += 1
             currentLong -= northSideLength
         currentLat -= westSideLength
-
-##    with open('results/cellsGenerated.json', 'w') as outfile:  
-##        json.dump(cells, outfile)
+    end = time.time()
+    print(str(end - start) + "s to generate cells")
+    print("Saving JSON")
+    with open('results/cellsGenerated.json', 'w') as outfile:  
+        json.dump(cells, outfile)
 
     end = time.time()
-    print(end - start)
+    print(str(end - start) + "s Total time")
     print(cellNum + 1)
-    return {'northSide': northSideLength, 'westSide': westSideLength, 'cells': cells}
+
+GetCellsInSelectedRegion(49.90257419738858, -66.07710900000001, 24.777976425842812, -128.12789025)

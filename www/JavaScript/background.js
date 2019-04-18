@@ -284,36 +284,8 @@
  });
  drawingManager.setMap(map);
 
- // heatmap layer
- heatmap = new HeatmapOverlay(map, {
-   "radius": 10, //Radius of each dot
-   "maxOpacity": 1,
-   "minOpacity": .25,
-   "scaleRadius": false,
-   "useLocalExtrema": false,
-   //Controls Color or Heatmap dots
-   "gradient": {
-     '.25': 'rgba(0,56,0,1)',
-     '.5': 'rgba(128,0,0,1)',
-     '.95': 'rgba(0,255,0,1)'
-   },
-   latField: 'lat',
-   lngField: 'lng',
-   valueField: 'gso'
- });
-
- //Loads Simulation Data Into Heatmap
- function LoadHeatMap() {
-   jQuery.getJSON("util/results/gsoData1.json", function (data) {
-     //console.log(data);
-     heatmap.setData(data);
-   });
- }
-
  //creates the simulation panel.
  var overlay = null;
-
- LoadHeatMap();
 
  //Deals with drawing shaps on the map
  var shape = null;
@@ -386,3 +358,13 @@
      document.getElementById("select").style.backgroundColor = "rgba(0,0,0,0)";
    }
  }
+
+ async function DrawCells() {
+   $.getJSON("../util/results/americasCells.json", function (data) {
+     $.each(data, function (key, value) {
+       console.log(value);
+     })
+   });
+ }
+
+ DrawCells();
