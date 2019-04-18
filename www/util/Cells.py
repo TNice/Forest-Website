@@ -48,12 +48,13 @@ def GetCellsInDrawnRegion(nwLat, nwLng, seLat, seLng):
 
 #Returns dictionary{northSide, westSide, cells},  size(side length) and varience are in meters
 def GetCellsInSelectedRegion(latNW, longNW, latSE, longSE, size=300, varience=5):
-    start = time.time() #get start time for timing
+    print("\nStart cell generation\n")
+    #start = time.time() #get start time for timing
     
     #Sets desiered lat and long offset for cells
     latOffset = size / const.RADIUS_EARTH
     longOffset = size / (const.RADIUS_EARTH * math.cos(math.pi * latNW / 180))
-
+    print("test")
     #Sets desired varience for lat and long offset (determins how strict the size is for upper end)
     #lower end has no varience since the region is divided into whole number cells of same size
     longVarience = varience / (const.RADIUS_EARTH * math.cos(math.pi * latNW / 180))

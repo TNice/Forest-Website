@@ -290,11 +290,11 @@
    "maxOpacity": 1,
    "minOpacity": .25,
    "scaleRadius": false,
-   "useLocalExtrema": true,
+   "useLocalExtrema": false,
    //Controls Color or Heatmap dots
    "gradient": {
      '.25': 'rgba(0,56,0,1)',
-     '.5': 'rgba(0,128,0,1)',
+     '.5': 'rgba(128,0,0,1)',
      '.95': 'rgba(0,255,0,1)'
    },
    latField: 'lat',

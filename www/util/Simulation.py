@@ -167,14 +167,17 @@ def LoadFile():
         f.close()
 
 def GetCells():
+    print("Cells")
     cellResults = Cells.GetCellsInSelectedRegion(nwLat, nwLng, seLat,seLng, size, variance)
+    print("Cells Generated")
     area = cellResults['northSide'] * cellResults['westSide']
     center = Cells.GetCellCenter()
-
+    print("cells created")
     for cell in cellResults['cells']:
         cells.append(Cell(area, random.randint(2, 5), random.randint(7000, 9000), center[0], center[1]))
 
 def RunSimulation(length=1):
+    print("simulation")
     year = 1
     data = {}
     data['max'] = 1
@@ -211,7 +214,7 @@ if len(sys.argv) == 8:
     seLat = sys.argv[6]
     seLng = sys.argv[7]
     GetCells()
-    RunSimulation()
+    #RunSimulation()
     print("Done")
 
 else:

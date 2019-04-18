@@ -96,6 +96,7 @@ SimulationMarker.prototype.draw = function () {
             console.log("SIMULATION INPUTS\nTimestep: " + timestep + "\nSize: " + size + "\nVariance: " + variance);
 
             var xmlhttp = new XMLHttpRequest();
+            xmlhttp.timeout = 20000;
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     console.log(this.responseText);
