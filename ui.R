@@ -1,1 +1,1 @@
-ui <- htmlTemplate("index.html")
+ui <- htmlTemplate("./www/index.html")
