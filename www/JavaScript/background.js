@@ -357,14 +357,31 @@
      document.getElementById("draw").style.backgroundColor = "rgb(185, 195, 185)";
      document.getElementById("select").style.backgroundColor = "rgba(0,0,0,0)";
    }
+  }
+
+ async function CreateMarker(lat, lng, color, value){
+    var marker = new google.maps.Marker({
+      position: {lat: lat, lng: lng},
+      map: map,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: color,
+        fillOpacity: 0.6,
+        scale: 7
+      },
+      value: value 
+    });
+
+    google.maps.event.addListener(marker, 'click', function(){
+      print(this.value);
+    })
  }
 
- async function DrawCells() {
-   $.getJSON("../util/results/americasCells.json", function (data) {
-     $.each(data, function (key, value) {
-       console.log(value);
-     })
-   });
- }
+ Shiny.addCustonMessageHandler("CellUpdated", function(message){
+   lat = message["lat"];
+   lng = message["lng"];
+   color = message["color"];
+   value = message["value"];
 
- DrawCells();
+   CreateMarker(lat, lng, color, value);
+ })
