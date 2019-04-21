@@ -359,29 +359,67 @@
    }
   }
 
- async function CreateMarker(lat, lng, color, value){
-    var marker = new google.maps.Marker({
-      position: {lat: lat, lng: lng},
-      map: map,
-      icon: {
-        path: google.maps.SymbolPath.CIRCLE,
-        fillColor: color,
-        fillOpacity: 0.6,
-        scale: 7
-      },
-      value: value 
-    });
+markers = [];
+function CreateMarker(lat, lng, color, value){
+   console.log(lat, lng);
+   let pos = {lat: lat, lng: lng};
+   console.log(pos);
+   var marker = new google.maps.Marker({
+    position: this.pos,
+    map: this.map,
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      fillColor: this.color,
+      fillOpacity: 0.6,
+      strokeWeight: 0,
+      scale: 7
+    },
+    value: 12,
+    cords: pos
+   });
+   
+   console.log(marker);
+   
+   marker.addListener('click', function(){
+     Shiny.setInputValue('randomizeCell', this.cords, {priority: "event"});
+   })
+   
+   markers.push(marker);
+   
+   return marker;
+}
 
-    google.maps.event.addListener(marker, 'click', function(){
-      print(this.value);
-    })
- }
+function GetMarker(lat, lng){
+  pos = {lat: lat, lng: lng};
+  for(i = 0; i < markers.length; i++){
+    if(markers[i].cords == pos){
+      return markers[i];
+    }
+  }
+  
+  return null;
+}
 
- Shiny.addCustonMessageHandler("CellUpdated", function(message){
-   lat = message["lat"];
-   lng = message["lng"];
-   color = message["color"];
-   value = message["value"];
-
-   CreateMarker(lat, lng, color, value);
- })
+$(document).onload = Shiny.addCustomMessageHandler('cell-updated', function(message){
+   lat = message["lat"]['0'];
+   lng = message["lng"]['0'];
+   color = message["color"]['0'];
+   value = message["value"]['0'];
+   console.log(message);
+   
+   let marker = GetMarker(lat, lng);
+   
+   if(marker === null){
+     CreateMarker(lat, lng, color, value);
+   }
+   else{
+     console.log(marker['icon']);
+   }
+   console.log(map.markers);
+   
+   //remove simulation box and selection **Note to be removed with better simulation run
+   overlay.setMap(null);
+   shape.setMap(null);
+   //end of simulation box and selection code
+});
+ 

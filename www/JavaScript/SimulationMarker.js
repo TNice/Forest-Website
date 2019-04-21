@@ -92,25 +92,15 @@ SimulationMarker.prototype.draw = function () {
             let timestep = document.getElementById("timestep-input").value;
             let size = document.getElementById("size-input").value;
             let variance = document.getElementById("var-input").value;
-
-            console.log("SIMULATION INPUTS\nTimestep: " + timestep + "\nSize: " + size + "\nVariance: " + variance);
-
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.timeout = 20000;
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    console.log(this.responseText);
-                    if (this.responseText == "Done") {
-                        LoadHeatMap();
-                    }
-                }
+            let msg = {
+              "timestep":timestep, 
+              "size":size, 
+              "variance":variance
             };
-
-            xmlhttp.open("GET", "./util/Simulate.php?time=" + timestep + "&size=" + size + "&var=" + variance + "&nwLat=" + nwLat + "&nwLng=" + nwLng + "&seLat=" + seLat + "&seLng=" + seLng, true);
-            console.log("Runing Simulation");
-            xmlhttp.send();
-
-
+            
+            console.log("SIMULATION INPUTS\n" + msg);
+            
+            Shiny.setInputValue('simulate', msg, {priority: "event"});
         });
         inputs.appendChild(simulateButton);
 
