@@ -319,7 +319,7 @@
      );
 
    } else if (event.type == google.maps.drawing.OverlayType.POLYGON) {
-     if (shape != null)
+     if (shape !== null)
        shape.setMap(null);
      shape = event.overlay;
      var path = shape.getPath();
@@ -365,11 +365,11 @@ function CreateMarker(lat, lng, color, value){
    let pos = {lat: lat, lng: lng};
    console.log(pos);
    var marker = new google.maps.Marker({
-    position: this.pos,
+    position: new google.maps.LatLng(lat, lng),
     map: this.map,
     icon: {
       path: google.maps.SymbolPath.CIRCLE,
-      fillColor: this.color,
+      fillColor: color,
       fillOpacity: 0.6,
       strokeWeight: 0,
       scale: 7
@@ -400,26 +400,41 @@ function GetMarker(lat, lng){
   return null;
 }
 
-$(document).onload = Shiny.addCustomMessageHandler('cell-updated', function(message){
-   lat = message["lat"]['0'];
-   lng = message["lng"]['0'];
-   color = message["color"]['0'];
-   value = message["value"]['0'];
-   console.log(message);
-   
-   let marker = GetMarker(lat, lng);
-   
-   if(marker === null){
-     CreateMarker(lat, lng, color, value);
-   }
-   else{
-     console.log(marker['icon']);
-   }
-   console.log(map.markers);
-   
-   //remove simulation box and selection **Note to be removed with better simulation run
-   overlay.setMap(null);
-   shape.setMap(null);
-   //end of simulation box and selection code
-});
- 
+window.onload = function() {
+  console.log("ONLOAD EVENT");
+  //Calls simulate event on the server
+  Shiny.setInputValue('simulate', "Simulate", {priority: "event"});
+  
+  //Response to cell update event from server
+  Shiny.addCustomMessageHandler('cell-updated', function(message){
+     console.log(message);
+     lat = message["lat"]['0'];
+     lng = message["lng"]['0'];
+     color = message["color"]['0'];
+     value = message["value"]['0'];
+     
+     let marker = GetMarker(lat, lng);
+     
+     if(marker === null){
+       CreateMarker(lat, lng, color, value);
+     }
+     else{
+       console.log(marker['icon']);
+     }
+     console.log(map.markers);
+     
+     //remove simulation box and selection **Note to be removed with better simulation run
+     overlay.setMap(null);
+     shape.setMap(null);
+     //end of simulation box and selection code
+  });
+  
+  Shiny.addCustomMessageHandler('create-cell', function(message){
+    lat = message["lat"]['0'];
+    lng = message["lng"]['0'];
+    color = message["color"]['0'];
+    value = message["value"]['0'];
+    
+    CreateMarker(lat, lng, color, value);
+  })
+}

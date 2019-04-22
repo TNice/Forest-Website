@@ -1,13 +1,18 @@
 server <- function(input, output, session){
+  output$map <- renderLeaflet({
+    m
+  })
   
-  CreateCells <- function(){
-    data <- data.frame("lat" = 38.9072, "lng" = -77.0369, "value" = 0.5, "color" = "#00000F")
+  observeEvent(input$map_shape_click, {
+    id <- input$map_shape_click$id
+    print(id)
+    #poly <- cells[which(cells$Id == id)]
+    #print(poly)
+  })
     
-    msg <- shiny:::toJSON(data)
-    
-    session$sendCustomMessage("cell-updated", msg);
-  }
-  observeEvent(input$simulate, CreateCells())
+  observeEvent(input$simulate, {
+    print("Simulate")
+  })
   
   observeEvent(input$randomizeCell, {
      info <- input$randomizeCell

@@ -99,8 +99,6 @@ SimulationMarker.prototype.draw = function () {
             };
             
             console.log("SIMULATION INPUTS\n" + msg);
-            
-            Shiny.setInputValue('simulate', msg, {priority: "event"});
         });
         inputs.appendChild(simulateButton);
 
