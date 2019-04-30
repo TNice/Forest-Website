@@ -64,7 +64,9 @@ m <- leaflet(options = leafletOptions(zoomControl = FALSE), data = cells) %>%
     targetGroup='draw',
     polylineOptions=FALSE,
     markerOptions = FALSE,
-    circleOptions = TRUE,
+    circleOptions = FALSE,
+    polygonOptions = FALSE,
+    circleMarkerOptions = FALSE,
     position = 'topright') %>%
   setView(lng = -98.583, lat = 39.833, zoom = 5)
 

@@ -60,7 +60,7 @@ server <- function(input, output, session){
       shapeBounds <- input$map_draw_new_feature$geometry$coordinates[[1]]
       cords = c(shapeBounds[1], shapeBounds[3])
       print(cords)
-      compareCells(cords)
+      cells <- compareCells(cords)
     }
   })
   
