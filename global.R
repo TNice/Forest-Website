@@ -17,8 +17,6 @@ Growthpal <- colorNumeric("Greens", 0:1)
 Firepal <- colorNumeric("Reds", 0:1)
 Insectpal <- colorNumeric("Blues", 0:1)
 
-pal <- Firepal
-
 m <- leaflet(options = leafletOptions(zoomControl = FALSE), data = cells) %>%
   addDrawToolbar(
     targetGroup='draw',
