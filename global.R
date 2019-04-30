@@ -5,6 +5,7 @@ library(rgdal)
 library(sp)
 library(rmapshaper)
 library(shinyjs)
+library(leaflet.extras)
 
 shiny::addResourcePath("shinyjs", system.file("srcjs", package = "shinyjs"))
 
@@ -19,5 +20,12 @@ Insectpal <- colorNumeric("Blues", 0:1)
 pal <- Firepal
 
 m <- leaflet(options = leafletOptions(zoomControl = FALSE), data = cells) %>%
+  addDrawToolbar(
+    targetGroup='draw',
+    polylineOptions=FALSE,
+    markerOptions = FALSE,
+    circleOptions = TRUE,
+    position = 'topright') %>%
   setView(lng = -98.583, lat = 39.833, zoom = 5)
+
 print("Server Ready")

@@ -52,6 +52,10 @@ server <- function(input, output, session){
     print("Simulate")
   })
   
+  observeEvent(input$map_draw_stop, {
+    print("Draw Stop")
+  })
+  
   observeEvent(input$randomizeCell, {
      info <- input$randomizeCell
      value <- runif(1, 0.25, .99)
