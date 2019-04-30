@@ -9,7 +9,7 @@ ui <- fluidPage(
     sidebarLayout(
       titlePanel(""),
       sidebarPanel(
-        selectInput("dataChoice", choices = c("test1", "test2"), label = "Simulation Data")
+        selectInput("dataChoice","Simulateion Data: ", choices = c("Growth", "Fire", "Insect"))
       )
     )
   )

@@ -14,17 +14,9 @@ cells <- ms_simplify(cells, keep = 0.01)
 
 pal <- colorNumeric("Greens", 0:1)
 
-# mypop <- paste0(cells$Value)
-
-m <- leaflet(options = leafletOptions(zoomControl = FALSE), data = cells) %>% 
-  addTiles() %>% 
-  addPolygons(
-    stroke = FALSE,
-    fillOpacity = 0.7,
-    fillColor = ~pal(CENSUSAREA),
-    popup = mypop,
-    layerId = ~Id) %>%
-  setView(lng = -98.583, lat = 39.833, zoom = 5) %>%
+m <- leaflet(options = leafletOptions(zoomControl = FALSE), data = cells) %>%
+  addTiles() %>%
+  setView(lng = -98.583, lat = 39.833, zoom = 5)
   
 
 print("Server Ready")

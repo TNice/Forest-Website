@@ -2,18 +2,26 @@ import json
 import random as r
 
 data = {}
+i = 1001
 
-with open("us.json") as file:
-    data = json.load(file)
 
-    for cell in data['features']:
-        properties = {
-            "Growth" : r.random(),
-            "Fire" : r.random(),
-            "Insect" : r.random()
-        }
+print("Starting...")
+with open('USCounties.json') as jsonfile:
+    data = json.load(jsonfile)
 
-        region['properties'] = properties
+for cell in data['features']:
+    properties = {
+        "Id" : i,
+        "Growth" : r.random(),
+        "Fire" : r.random(),
+        "Insect" : r.random()
+    }
 
-with open("us.json", "w") as file:
-    json.dump(data)
+    cell['properties'] = properties
+    i = i + 1
+
+if data != {}:
+    with open('USCounties.json', "w") as file:
+        json.dump(data, file)
+
+print("DONE")
