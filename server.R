@@ -53,7 +53,15 @@ server <- function(input, output, session){
   })
   
   observeEvent(input$map_draw_stop, {
-    print("Draw Stop")
+    feature_type <- input$map_draw_new_feature$properties$feature_type
+    
+    if(feature_type %in% c("rectangle","polygon")) {
+      #get the coordinates of the polygon
+      shapeBounds <- input$map_draw_new_feature$geometry$coordinates[[1]]
+      cords = c(shapeBounds[1], shapeBounds[3])
+      print(cords)
+      compareCells(cords)
+    }
   })
   
   observeEvent(input$randomizeCell, {
