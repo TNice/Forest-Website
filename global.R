@@ -27,10 +27,6 @@ compareCells <- function(cords){
   maxLong <- cords[[2]][[2]]
   counter <- 0
   print(cells@polygons[[1]]@labpt)
-  
-  print("Test")
-  print(minLat)
-  
   for(C in cells@polygons){
     counter <- counter + 1
     myCords <- C@Polygons[[1]]@coords
@@ -43,20 +39,48 @@ compareCells <- function(cords){
       }
     }
   }
+  
+  if(length(cellArray) == 0){
+    cellResult <- GetRegionFromPoint(cords[[1]])
+    cellArray[1] <- cellResult
+  }
+  print(cellArray)
+  return(cellArray)
+}
 
-
-  # cellArray <- c()
-  # print(cells, 1:5)
-  # for (F in cells$Polygons){
-  #   for(point in F$Polygon$coords){
-  #     if(minLat < point[0] && point[0] < maxLat && minLong < points[1] && points[1] < maxLong){
-  #       append(cellArray, F$Id)
-  #       print(F$Id)
-  #       break;
-  #     }
-  #   }
-  # }
-  # return(cellArray)
+GetRegionFromPoint <- function(point){
+  counter <- 0
+  cellArray <- c()
+  
+  x <- point[[1]]
+  y <- point[[2]]
+  
+  for(C in cells@polygons){
+    counter <- counter + 1
+    myCords <- C@Polygons[[1]]@coords
+    
+    inside <- FALSE
+    j <- nrow(myCords)
+    for(i in 1:nrow(myCords)){
+      xi <- myCords[i,1]
+      yi <- myCords[i,2]
+      xj <- myCords[j,1]
+      yj <- myCords[j,2]
+      
+      doesIntersect <- ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)
+      if(doesIntersect){
+        inside <- !inside
+        print(inside)
+      }
+      
+      j <- i  
+    }
+    
+    if(inside){
+      print(cells$Id[counter])
+      return(cells$Id[counter])
+    }
+  }
 }
 
 m <- leaflet(options = leafletOptions(zoomControl = FALSE), data = cells) %>%

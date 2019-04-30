@@ -59,8 +59,8 @@ server <- function(input, output, session){
       #get the coordinates of the polygon
       shapeBounds <- input$map_draw_new_feature$geometry$coordinates[[1]]
       cords = c(shapeBounds[1], shapeBounds[3])
-      print(cords)
-      cells <- compareCells(cords)
+      cellResults <- compareCells(cords)
+      print(cellResults)
     }
   })
   
