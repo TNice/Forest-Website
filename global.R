@@ -9,16 +9,21 @@ library(leaflet.extras)
 
 shiny::addResourcePath("shinyjs", system.file("srcjs", package = "shinyjs"))
 
-print("Server Starting")
+cat("Server Starting...\n\n")
+cat("Loading Json...\n")
 cells <- geojsonio::geojson_read("testdata/USCounties.json", what = "sp")
+cat("Json Loaded!\n\n")
+cat("Simplifying Json...\n")
 cells <- ms_simplify(cells, keep = 0.01)
+cat("Json Simplified!\n\n")
 
+cat("Creating Server Globals...\n")
 currentYear <- 2020
 Growthpal <- colorNumeric("Greens", 0:1)
 Firepal <- colorNumeric("Reds", 0:1)
 Insectpal <- colorNumeric("Blues", 0:1)
+cat("Server Globals Created!\n\n")
 
-currentSelection <- NULL
 
 compareCells <- function(cords){
 
@@ -94,4 +99,4 @@ m <- leaflet(options = leafletOptions(zoomControl = FALSE), data = cells) %>%
     position = 'topright') %>%
   setView(lng = -98.583, lat = 39.833, zoom = 5)
 
-print("Server Ready")
+cat("Server Ready!\n\n")
