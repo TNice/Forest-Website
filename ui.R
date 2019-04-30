@@ -1,17 +1,22 @@
 ui <- fluidPage(
-  tags$style(type = "text/css", "#map {height: 100vh !important; width: 100vw !important;} .container-fluid{padding:0px;}"),
+  tags$style(type = "text/css", "#map {height: 100vh !important; width: 100vw !important;}
+             .container-fluid{padding:0px;}
+             #control-container{pointer-events: none; margin-left: 1vw; margin-right: 0vw;}
+             #controls{pointer-events: all; }"),
   leafletOutput("map"),
   absolutePanel(
+    id = "control-container",
     top = 0,
-    bottom = 'auto',
+    bottom = 0,
     right = 'auto',
-    left = 0,
-    width = 300,
-    height = 150,
+    left = 'auto',
+    width = 350,
     sidebarLayout(
       titlePanel(""),
       sidebarPanel(
-        width = 300,
+        id = "controls",
+        width = 250,
+        sliderInput("yearChoice", "Year", 1900, 2100, value = 2020, sep = ""),
         selectInput("dataChoice","Simulation Data: ", choices = c("Growth", "Fire", "Insect"))
       )
     )

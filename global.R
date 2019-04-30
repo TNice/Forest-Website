@@ -13,9 +13,12 @@ print("Server Starting")
 cells <- geojsonio::geojson_read("testdata/USCounties.json", what = "sp")
 cells <- ms_simplify(cells, keep = 0.01)
 
+currentYear <- 2020
 Growthpal <- colorNumeric("Greens", 0:1)
 Firepal <- colorNumeric("Reds", 0:1)
 Insectpal <- colorNumeric("Blues", 0:1)
+
+currentSelection <- NULL
 
 compareCells <- function(cords){
 
@@ -33,8 +36,7 @@ compareCells <- function(cords){
     for(P in 1:nrow(myCords)){
       if(minLat < myCords[P,1] && myCords[P,1] < maxLat && minLong < myCords[P, 2] && myCords[P,2] < maxLong){
         
-              append(cellArray, cells$Id[counter])
-              print(cells$Id[counter])
+              append(cellArray, counter)
               break;
       }
     }
@@ -44,7 +46,6 @@ compareCells <- function(cords){
     cellResult <- GetRegionFromPoint(cords[[1]])
     cellArray[1] <- cellResult
   }
-  print(cellArray)
   return(cellArray)
 }
 
@@ -77,8 +78,7 @@ GetRegionFromPoint <- function(point){
     }
     
     if(inside){
-      print(cells$Id[counter])
-      return(cells$Id[counter])
+      return(counter)
     }
   }
 }

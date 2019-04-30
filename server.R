@@ -1,5 +1,7 @@
 server <- function(input, output, session){
   filteredData <- reactive({
+    currentYear <-input$yearChoice
+    print(currentYear)
     if(input$dataChoice == "Growth"){
       pal <- Growthpal
       return("Growth")
@@ -41,46 +43,23 @@ server <- function(input, output, session){
       )
   })
   
+  #could be used to edit or see a single county
   observeEvent(input$map_shape_click, {
     id <- input$map_shape_click$id
-    print(id)
-    #poly <- cells[which(cells$Id == id)]
-    #print(poly)
-  })
-    
-  observeEvent(input$simulate, {
-    print("Simulate")
+    #print(id)
   })
   
-  observeEvent(input$map_draw_stop, {
+  observeEvent(input$map_draw_new_feature, {
+    print("New Feature")
     feature_type <- input$map_draw_new_feature$properties$feature_type
     
-    if(feature_type %in% c("rectangle","polygon")) {
+    if(feature_type %in% c("rectangle")) {
       #get the coordinates of the polygon
       shapeBounds <- input$map_draw_new_feature$geometry$coordinates[[1]]
       cords = c(shapeBounds[1], shapeBounds[3])
       cellResults <- compareCells(cords)
       print(cellResults)
     }
-  })
-  
-  observeEvent(input$randomizeCell, {
-     info <- input$randomizeCell
-     value <- runif(1, 0.25, .99)
-     red <- sample(10:99, 1)
-     green <- sample(10:99, 1)
-     blue <- sample(10:99, 1)
-     
-     color <- paste("#", red, sep="")
-     color <- paste(color, green, sep="")
-     color <- paste(color, blue, sep="")
-     
-     print(color)
-     data <- data.frame("lat" = info$lat, "lng" = info$lng, "value" = value, "color" = color)
-  
-     msg <- shiny:::toJSON(data)
-     
-     session$sendCustomMessage("cell-updated", msg);
   })
 }
 
