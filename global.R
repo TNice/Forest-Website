@@ -17,6 +17,4 @@ pal <- colorNumeric("Greens", 0:1)
 m <- leaflet(options = leafletOptions(zoomControl = FALSE), data = cells) %>%
   addTiles() %>%
   setView(lng = -98.583, lat = 39.833, zoom = 5)
-  
-
 print("Server Ready")

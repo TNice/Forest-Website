@@ -3,8 +3,8 @@ ui <- fluidPage(
   leafletOutput("map"),
   absolutePanel(
     top = 0,
-    bottom = 0,
-    right = 0,
+    bottom = 'auto',
+    right = 'auto',
     left = 0,
     sidebarLayout(
       titlePanel(""),
