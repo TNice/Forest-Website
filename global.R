@@ -22,8 +22,6 @@ currentYear <- 2020
 Growthpal <- colorNumeric("Greens", 0:1)
 Firepal <- colorNumeric("Reds", 0:1)
 Insectpal <- colorNumeric("Blues", 0:1)
-cat("Server Globals Created!\n\n")
-
 
 compareCells <- function(cords){
 
@@ -98,5 +96,7 @@ m <- leaflet(options = leafletOptions(zoomControl = FALSE), data = cells) %>%
     circleMarkerOptions = FALSE,
     position = 'topright') %>%
   setView(lng = -98.583, lat = 39.833, zoom = 5)
+
+cat("Server Globals Created!\n\n")
 
 cat("Server Ready!\n\n")
