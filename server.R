@@ -1,8 +1,17 @@
 server <- function(input, output, session){
   filteredData <- reactive({
-    if(input$dataChoice == "Growth") return("Growth")
-    if(input$dataChoice == "Fire") return("Fire")
-    if(input$dataChoice == "Insect") return("Insect")
+    if(input$dataChoice == "Growth"){
+      pal <- Growthpal
+      return("Growth")
+    }
+    if(input$dataChoice == "Fire"){
+      pal <- Firepal
+      return("Fire")
+    }
+    if(input$dataChoice == "Insect"){
+      pal <- Insectpal
+      return("Insect")
+    }
   })
   
   output$map <- renderLeaflet({
@@ -17,14 +26,15 @@ server <- function(input, output, session){
                     )
     
     leafletProxy("map", data = cells) %>%
+      addTiles() %>%
       clearShapes() %>%
       addPolygons(
         stroke = FALSE,
         fillOpacity = 0.7,
         fillColor = switch(filteredData(), 
-                           "Growth" = ~pal(Growth), 
-                           "Fire" = ~pal(Fire),
-                           "Insect" = ~pal(Insect)
+                           "Growth" = ~Growthpal(Growth), 
+                           "Fire" = ~Firepal(Fire),
+                           "Insect" = ~Insectpal(Insect)
                            ),
         popup = mypop,
         layerId = ~Id

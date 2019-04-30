@@ -6,10 +6,13 @@ ui <- fluidPage(
     bottom = 'auto',
     right = 'auto',
     left = 0,
+    width = 300,
+    height = 150,
     sidebarLayout(
       titlePanel(""),
       sidebarPanel(
-        selectInput("dataChoice","Simulateion Data: ", choices = c("Growth", "Fire", "Insect"))
+        width = 300,
+        selectInput("dataChoice","Simulation Data: ", choices = c("Growth", "Fire", "Insect"))
       )
     )
   )
