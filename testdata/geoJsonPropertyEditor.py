@@ -9,30 +9,26 @@ print("Starting...")
 with open('USCounties.json') as jsonfile:
     data = json.load(jsonfile)
 
-for cell in data['features']:
-    properties = {
-        "Id" : i,
-        "Growth" : r.random(),
-        "Fire" : r.random(),
-        "Insect" : r.random()
-    }
+##for cell in data['features']:
+##    properties = {
+##        "Id" : i,
+##        "Growth" : r.random(),
+##        "Fire" : r.random(),
+##        "Insect" : r.random()
+##    }
+##
+##    cell['properties'] = properties
+##    i = i + 1
 
-    cell['properties'] = properties
+for cell in data['features']:
+    cell['properties']['Id'] = i
+    for j in range(1900,2100):
+        cell['properties'][str(j)] = r.random()
+        
     i = i + 1
 
-##for cell in data['features']:
-##    cell['properties'] = {}
-##    for i in range(1900,2100):
-##        properties = {
-##            "Id" : i,
-##            "Growth" : r.random(),
-##            "Fire" : r.random(),
-##            "Insect" : r.random()
-##        }
-##        cell['properties'][str(i)] =  properties
-
 if data != {}:
-    with open('Test.json', "w") as file:
+    with open('InsectTestData.json', "w") as file:
         json.dump(data, file)
 
 print("DONE")
