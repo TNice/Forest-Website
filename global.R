@@ -17,11 +17,43 @@ cat("Simplifying Json...\n")
 cells <- ms_simplify(cells, keep = 0.01)
 cat("Json Simplified!\n\n")
 
+cat("Loading Growth Json...\n")
+growthCells <- geojsonio::geojson_read("testdata/GrowthTestData.json", what = "sp")
+cat("Growth Json Loaded!\n\n")
+cat("Simplifying Growth Json...\n")
+growthCells <- ms_simplify(cells, keep = 0.01)
+cat("Growth Json Simplified!\n\n")
+
+cat("Loading Fire Json...\n")
+fireCells <- geojsonio::geojson_read("testdata/FireTestData.json", what = "sp")
+cat("Fire Json Loaded!\n\n")
+cat("Simplifying Fire Json...\n")
+fireCells <- ms_simplify(cells, keep = 0.01)
+cat("Fire Json Simplified!\n\n")
+
+cat("Loading Insect Json...\n")
+insectCells <- geojsonio::geojson_read("testdata/InsectTestData.json", what = "sp")
+cat("Insect Json Loaded!\n\n")
+cat("Simplifying Insect Json...\n")
+insectCells <- ms_simplify(cells, keep = 0.01)
+cat("Insect Json Simplified!\n\n")
+
 cat("Creating Server Globals...\n")
 currentYear <- 2020
 Growthpal <- colorNumeric("Greens", 0:1)
 Firepal <- colorNumeric("Reds", 0:1)
 Insectpal <- colorNumeric("Blues", 0:1)
+
+cat("Creating Server Globals...\n")
+currentYear <- 2020
+Growthpal <- colorNumeric("Greens", 0:1)
+Firepal <- colorNumeric("Reds", 0:1)
+Insectpal <- colorNumeric("Blues", 0:1)
+
+currentYear <- 0
+currentChoice <- "Growth"
+
+mypop <- paste0(cells$Growth)
 
 compareCells <- function(cords){
 
@@ -85,8 +117,11 @@ GetRegionFromPoint <- function(point){
     }
   }
 }
+cat("Server Globals Created!\n\n")
 
-m <- leaflet(options = leafletOptions(zoomControl = FALSE), data = cells) %>%
+cat("Creating Map...\n")
+m <- leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
+  addTiles() %>%
   addDrawToolbar(
     targetGroup='draw',
     polylineOptions=FALSE,
@@ -95,8 +130,34 @@ m <- leaflet(options = leafletOptions(zoomControl = FALSE), data = cells) %>%
     polygonOptions = FALSE,
     circleMarkerOptions = FALSE,
     position = 'topright') %>%
+  addPolygons(
+    data = cells,
+    stroke = FALSE,
+    fillOpacity = 0.7,
+    fillColor = ~Growthpal(Growth), 
+    popup = mypop,
+    group = "Growth"
+  ) %>%
+  hideGroup("Growth") %>%
+  addPolygons(
+    data = cells,
+    stroke = FALSE,
+    fillOpacity = 0.7,
+    fillColor = ~Firepal(Fire), 
+    popup = mypop,
+    group = "Fire"
+  ) %>%
+  hideGroup("Fire") %>%
+  addPolygons(
+    data = cells,
+    stroke = FALSE,
+    fillOpacity = 0.7,
+    fillColor = ~Insectpal(Insect), 
+    popup = mypop,
+    group = "Insect"
+  ) %>%
+  hideGroup("Insect") %>%
   setView(lng = -98.583, lat = 39.833, zoom = 5)
-
-cat("Server Globals Created!\n\n")
+cat("Map Created!\n\n")
 
 cat("Server Ready!\n\n")

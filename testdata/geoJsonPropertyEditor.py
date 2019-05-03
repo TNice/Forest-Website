@@ -21,11 +21,15 @@ with open('USCounties.json') as jsonfile:
 ##    i = i + 1
 
 for cell in data['features']:
-    cell['properties']['Id'] = i
-    for j in range(1900,2100):
-        cell['properties'][str(j)] = r.random()
+    properties = {
+        'Id' : i
+    }
+    for j in range(1,5):
+        properties[str(j)] = r.random()
         
     i = i + 1
+
+    cell['properties'] = properties
 
 if data != {}:
     with open('InsectTestData.json', "w") as file:

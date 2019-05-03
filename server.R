@@ -1,19 +1,7 @@
 server <- function(input, output, session){
   filteredData <- reactive({
-    currentYear <-input$yearChoice
-    print(currentYear)
-    if(input$dataChoice == "Growth"){
-      pal <- Growthpal
-      return("Growth")
-    }
-    if(input$dataChoice == "Fire"){
-      pal <- Firepal
-      return("Fire")
-    }
-    if(input$dataChoice == "Insect"){
-      pal <- Insectpal
-      return("Insect")
-    }
+    results <- data.frame("year" = input$yearChoice, "data" = input$dataChoice)
+    return(results)
   })
   
   output$map <- renderLeaflet({
@@ -21,26 +9,51 @@ server <- function(input, output, session){
   })
   
   observe({
-    mypop <- paste0(switch(filteredData(), 
+    inputs <- filteredData()
+    print(inputs)
+    switch(as.character(inputs$data), 
+      "Growth" = {
+        mypop <- paste0(cells$Growth)
+        leafletProxy("map") %>%
+          hideGroup("Fire") %>%
+          hideGroup("Insect") %>%
+          showGroup("Growth")
+      }, 
+      "Fire" = {
+        mypop <- paste0(cells$Fire)
+        leafletProxy("map") %>%
+          hideGroup("Growth") %>%
+          hideGroup("Insect") %>%
+          showGroup("Fire")
+      },
+      "Insect" = {
+        paste0(cells$Insect)
+        leafletProxy("map") %>%
+          hideGroup("Fire") %>%
+          hideGroup("Growth") %>%
+          showGroup("Insect")
+      }
+    )
+    mypop <- paste0(switch(as.character(inputs$data), 
                            "Growth" = cells$Growth, 
                            "Fire" = cells$Fire,
                            "Insect" = cells$Insect)
                     )
     
-    leafletProxy("map", data = cells) %>%
-      addTiles() %>%
-      clearShapes() %>%
-      addPolygons(
-        stroke = FALSE,
-        fillOpacity = 0.7,
-        fillColor = switch(filteredData(), 
-                           "Growth" = ~Growthpal(Growth), 
-                           "Fire" = ~Firepal(Fire),
-                           "Insect" = ~Insectpal(Insect)
-                           ),
-        popup = mypop,
-        layerId = ~Id
-      )
+     #leafletProxy("map") %>%
+      # clearShapes()
+      # addPolygons(
+      #   data = cells,
+      #   stroke = FALSE,
+      #   fillOpacity = 0.7,
+      #   fillColor = switch(as.character(inputs$data), 
+      #                      "Growth" = ~Growthpal(Growth), 
+      #                      "Fire" = ~Firepal(Fire),
+      #                      "Insect" = ~Insectpal(Insect)
+      #                      ),
+      #   popup = mypop,
+      #   layerId = ~Id
+      # )
   })
   
   #could be used to edit or see a single county
