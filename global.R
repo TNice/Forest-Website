@@ -21,21 +21,21 @@ cat("Loading Growth Json...\n")
 growthCells <- geojsonio::geojson_read("testdata/GrowthTestData.json", what = "sp")
 cat("Growth Json Loaded!\n\n")
 cat("Simplifying Growth Json...\n")
-growthCells <- ms_simplify(cells, keep = 0.01)
+growthCells <- ms_simplify(growthCells, keep = 0.01)
 cat("Growth Json Simplified!\n\n")
 
 cat("Loading Fire Json...\n")
 fireCells <- geojsonio::geojson_read("testdata/FireTestData.json", what = "sp")
 cat("Fire Json Loaded!\n\n")
 cat("Simplifying Fire Json...\n")
-fireCells <- ms_simplify(cells, keep = 0.01)
+fireCells <- ms_simplify(fireCells, keep = 0.01)
 cat("Fire Json Simplified!\n\n")
 
 cat("Loading Insect Json...\n")
 insectCells <- geojsonio::geojson_read("testdata/InsectTestData.json", what = "sp")
 cat("Insect Json Loaded!\n\n")
 cat("Simplifying Insect Json...\n")
-insectCells <- ms_simplify(cells, keep = 0.01)
+insectCells <- ms_simplify(insectCells, keep = 0.01)
 cat("Insect Json Simplified!\n\n")
 
 cat("Creating Server Globals...\n")
@@ -53,7 +53,9 @@ Insectpal <- colorNumeric("Blues", 0:1)
 currentYear <- 0
 currentChoice <- "Growth"
 
-mypop <- paste0(cells$Growth)
+growthPop <- paste0(cells$Growth)
+firePop <- paste0(cells$Fire)
+insectPop <- paste0(cells$Insect)
 
 compareCells <- function(cords){
 
@@ -135,7 +137,7 @@ m <- leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
     stroke = FALSE,
     fillOpacity = 0.7,
     fillColor = ~Growthpal(Growth), 
-    popup = mypop,
+    popup = growthPop,
     group = "Growth"
   ) %>%
   hideGroup("Growth") %>%
@@ -144,7 +146,7 @@ m <- leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
     stroke = FALSE,
     fillOpacity = 0.7,
     fillColor = ~Firepal(Fire), 
-    popup = mypop,
+    popup = firePop,
     group = "Fire"
   ) %>%
   hideGroup("Fire") %>%
@@ -153,7 +155,7 @@ m <- leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
     stroke = FALSE,
     fillOpacity = 0.7,
     fillColor = ~Insectpal(Insect), 
-    popup = mypop,
+    popup = insectPop,
     group = "Insect"
   ) %>%
   hideGroup("Insect") %>%

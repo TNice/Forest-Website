@@ -10,35 +10,35 @@ server <- function(input, output, session){
   
   observe({
     inputs <- filteredData()
+    year <- inputs['year']
     print(inputs)
+    
+    mapProxy <- leafletProxy("map")
+    
     switch(as.character(inputs$data), 
       "Growth" = {
         mypop <- paste0(cells$Growth)
-        leafletProxy("map") %>%
+        mapProxy %>%
           hideGroup("Fire") %>%
           hideGroup("Insect") %>%
           showGroup("Growth")
       }, 
       "Fire" = {
         mypop <- paste0(cells$Fire)
-        leafletProxy("map") %>%
+        mapProxy %>%
           hideGroup("Growth") %>%
           hideGroup("Insect") %>%
           showGroup("Fire")
       },
       "Insect" = {
         paste0(cells$Insect)
-        leafletProxy("map") %>%
+        mapProxy %>%
           hideGroup("Fire") %>%
           hideGroup("Growth") %>%
           showGroup("Insect")
       }
     )
-    mypop <- paste0(switch(as.character(inputs$data), 
-                           "Growth" = cells$Growth, 
-                           "Fire" = cells$Fire,
-                           "Insect" = cells$Insect)
-                    )
+    
     
      #leafletProxy("map") %>%
       # clearShapes()
