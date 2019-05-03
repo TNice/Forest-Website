@@ -10,8 +10,19 @@ server <- function(input, output, session){
   
   observe({
     inputs <- filteredData()
-    year <- inputs['year']
-    print(inputs)
+    year <- inputs$year
+    updateYear <- FALSE
+    
+    print(currentYear)
+    print(year)
+    
+    if(is.null(currentYear)){
+      currentYear <- year
+    }
+    else if(currentYear != year){
+      setCurrentYear(year)
+      updateYear <- TRUE
+    }
     
     mapProxy <- leafletProxy("map")
     
@@ -22,6 +33,22 @@ server <- function(input, output, session){
           hideGroup("Fire") %>%
           hideGroup("Insect") %>%
           showGroup("Growth")
+        if(updateYear == TRUE){
+          setGrowthYear(year)
+          mapProxy %>%
+            clearGroup("Growth") %>%
+            addPolygons(
+              data = growthCells,
+              stroke = FALSE,
+              fillOpacity = 0.7,
+              fillColor = ~Growthpal(growthCells@data[[((year - minYear) + 2)]]), 
+              popup = growthPop,
+              group = "Growth"
+            )
+        }else if(!is.null(session)){
+          updateSliderInput(session = session, inputId = "yearChoice", value = growthYear)
+          setCurrentYear(growthYear)
+        }
       }, 
       "Fire" = {
         mypop <- paste0(cells$Fire)
@@ -29,6 +56,22 @@ server <- function(input, output, session){
           hideGroup("Growth") %>%
           hideGroup("Insect") %>%
           showGroup("Fire")
+        if(updateYear == TRUE){
+          setFireYear(year)
+          mapProxy %>%
+            clearGroup("Fire") %>%
+            addPolygons(
+              data = fireCells,
+              stroke = FALSE,
+              fillOpacity = 0.7,
+              fillColor = ~Firepal(fireCells@data[[((year - minYear) + 2)]]), 
+              popup = firePop,
+              group = "Fire"
+            )
+        }else if(!is.null(session)){
+          updateSliderInput(session = session, inputId = "yearChoice", value = fireYear)
+          setCurrentYear(fireYear)
+        }
       },
       "Insect" = {
         paste0(cells$Insect)
@@ -36,9 +79,25 @@ server <- function(input, output, session){
           hideGroup("Fire") %>%
           hideGroup("Growth") %>%
           showGroup("Insect")
+        if(updateYear == TRUE){
+          setInsectYear(year)
+          mapProxy %>%
+            clearGroup("Insect") %>%
+            addPolygons(
+              data = insectCells,
+              stroke = FALSE,
+              fillOpacity = 0.7,
+              fillColor = ~Insectpal(insectCells@data[[((year - minYear) + 2)]]), 
+              popup = insectPop,
+              group = "Insect"
+            )
+        }
+        else if(!is.null(session)){
+          updateSliderInput(session = session, inputId = "yearChoice", value = insectYear)
+          setCurrentYear(insectYear)
+        }
       }
     )
-    
     
      #leafletProxy("map") %>%
       # clearShapes()

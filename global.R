@@ -39,23 +39,38 @@ insectCells <- ms_simplify(insectCells, keep = 0.01)
 cat("Insect Json Simplified!\n\n")
 
 cat("Creating Server Globals...\n")
-currentYear <- 2020
+currentYear <- 1
+minYear <- 1
+maxYear <- 4
+
+growthYear <- 1
+fireYear <- 1
+insectYear <- 1
+
 Growthpal <- colorNumeric("Greens", 0:1)
 Firepal <- colorNumeric("Reds", 0:1)
 Insectpal <- colorNumeric("Blues", 0:1)
-
-cat("Creating Server Globals...\n")
-currentYear <- 2020
-Growthpal <- colorNumeric("Greens", 0:1)
-Firepal <- colorNumeric("Reds", 0:1)
-Insectpal <- colorNumeric("Blues", 0:1)
-
-currentYear <- 0
-currentChoice <- "Growth"
 
 growthPop <- paste0(cells$Growth)
 firePop <- paste0(cells$Fire)
 insectPop <- paste0(cells$Insect)
+
+setCurrentYear <- function(year){
+  print(year)
+  currentYear <<- year
+}
+
+setGrowthYear <- function(year){
+  growthYear <<- year
+}
+
+setFireYear <- function(year){
+  fireYear <<- year
+}
+
+setInsectYear <- function(year){
+  insectYear <<- year
+}
 
 compareCells <- function(cords){
 
@@ -72,9 +87,8 @@ compareCells <- function(cords){
     myCords <- C@Polygons[[1]]@coords
     for(P in 1:nrow(myCords)){
       if(minLat < myCords[P,1] && myCords[P,1] < maxLat && minLong < myCords[P, 2] && myCords[P,2] < maxLong){
-        
-              append(cellArray, counter)
-              break;
+        append(cellArray, counter)
+        break;
       }
     }
   }
@@ -133,28 +147,28 @@ m <- leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
     circleMarkerOptions = FALSE,
     position = 'topright') %>%
   addPolygons(
-    data = cells,
+    data = growthCells,
     stroke = FALSE,
     fillOpacity = 0.7,
-    fillColor = ~Growthpal(Growth), 
+    fillColor = ~Growthpal(growthCells@data[[2]]), 
     popup = growthPop,
     group = "Growth"
   ) %>%
   hideGroup("Growth") %>%
   addPolygons(
-    data = cells,
+    data = fireCells,
     stroke = FALSE,
     fillOpacity = 0.7,
-    fillColor = ~Firepal(Fire), 
+    fillColor = ~Firepal(growthCells@data[[((currentYear - minYear) + 2)]]), 
     popup = firePop,
     group = "Fire"
   ) %>%
   hideGroup("Fire") %>%
   addPolygons(
-    data = cells,
+    data = insectCells,
     stroke = FALSE,
     fillOpacity = 0.7,
-    fillColor = ~Insectpal(Insect), 
+    fillColor = ~Insectpal(growthCells@data[[((currentYear - minYear) + 2)]]), 
     popup = insectPop,
     group = "Insect"
   ) %>%

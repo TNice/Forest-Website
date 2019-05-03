@@ -16,7 +16,7 @@ ui <- fluidPage(
       sidebarPanel(
         id = "controls",
         width = 250,
-        sliderInput("yearChoice", "Year", 1900, 2100, value = 2020, sep = ""),
+        sliderInput("yearChoice", "Year", minYear, maxYear, value = currentYear, sep = ""),
         selectInput("dataChoice","Simulation Data: ", choices = c("Growth", "Fire", "Insect"))
       )
     )
