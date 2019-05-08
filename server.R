@@ -5,7 +5,7 @@ server <- function(input, output, session){
   })
   
   output$map <- renderLeaflet({
-    m
+    map
   })
   
   observe({
@@ -98,21 +98,6 @@ server <- function(input, output, session){
         }
       }
     )
-    
-     #leafletProxy("map") %>%
-      # clearShapes()
-      # addPolygons(
-      #   data = cells,
-      #   stroke = FALSE,
-      #   fillOpacity = 0.7,
-      #   fillColor = switch(as.character(inputs$data), 
-      #                      "Growth" = ~Growthpal(Growth), 
-      #                      "Fire" = ~Firepal(Fire),
-      #                      "Insect" = ~Insectpal(Insect)
-      #                      ),
-      #   popup = mypop,
-      #   layerId = ~Id
-      # )
   })
   
   #could be used to edit or see a single county
@@ -122,7 +107,6 @@ server <- function(input, output, session){
   })
   
   observeEvent(input$map_draw_new_feature, {
-    print("New Feature")
     feature_type <- input$map_draw_new_feature$properties$feature_type
     
     if(feature_type %in% c("rectangle")) {
@@ -130,8 +114,34 @@ server <- function(input, output, session){
       shapeBounds <- input$map_draw_new_feature$geometry$coordinates[[1]]
       cords = c(shapeBounds[1], shapeBounds[3])
       cellResults <- compareCells(cords)
-      print(cellResults)
+      #print(cellResults)
     }
+  })
+  
+  observeEvent(input$drawRectangle,{
+    runjs("
+      if (myMap == null) {
+          myMap = mapsPlaceholder.pop();
+      }
+      let polygonDrawer = new L.Draw.Rectangle(myMap);
+      
+      console.log(window.shape);
+      if(window.shape != null){
+          console.log('Shape Removed');
+          window.shape.remove();
+      }
+
+      // Assumming you have a Leaflet map accessible
+      myMap.on('draw:created', function (e) {
+          var type = e.layerType,
+              layer = e.layer;
+              
+          window.shape = layer;
+          layer.addTo(myMap);
+      });
+      
+      polygonDrawer.enable();
+    ")
   })
 }
 

@@ -56,7 +56,6 @@ firePop <- paste0(cells$Fire)
 insectPop <- paste0(cells$Insect)
 
 setCurrentYear <- function(year){
-  print(year)
   currentYear <<- year
 }
 
@@ -74,7 +73,7 @@ setInsectYear <- function(year){
 
 compareCells <- function(cords){
 
-  print(cells$Id[1])
+  #print(cells$Id[1])
   cellArray <- c()
   minLat <- cords[[1]][[1]]
   minLong <- cords[[1]][[2]]
@@ -122,7 +121,6 @@ GetRegionFromPoint <- function(point){
       doesIntersect <- ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)
       if(doesIntersect){
         inside <- !inside
-        print(inside)
       }
       
       j <- i  
@@ -136,7 +134,7 @@ GetRegionFromPoint <- function(point){
 cat("Server Globals Created!\n\n")
 
 cat("Creating Map...\n")
-m <- leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
+map <- leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
   addTiles() %>%
   addDrawToolbar(
     targetGroup='draw',
