@@ -20,7 +20,7 @@ ui <- fluidPage(
         width = 250,
         sliderInput("yearChoice", "Year", minYear, maxYear, value = currentYear, sep = ""),
         selectInput("dataChoice","Simulation Data: ", choices = c("Growth", "Fire", "Insect")),
-        actionButton(inputId = "drawRectangle", label = "test", class = "leaflet-draw-draw-rectangle")
+        actionButton(inputId = "drawRectangle", label = "Select Region", class = "leaflet-draw-draw-rectangle")
       )
     )
   )

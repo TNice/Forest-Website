@@ -143,6 +143,8 @@ map <- leaflet(options = leafletOptions(zoomControl = FALSE)) %>%
     circleOptions = FALSE,
     polygonOptions = FALSE,
     circleMarkerOptions = FALSE,
+    rectangleOptions = FALSE,
+    singleFeature = TRUE,
     position = 'topright') %>%
   addPolygons(
     data = growthCells,

@@ -106,6 +106,7 @@ server <- function(input, output, session){
     #print(id)
   })
   
+  #when new shape is drawn
   observeEvent(input$map_draw_new_feature, {
     feature_type <- input$map_draw_new_feature$properties$feature_type
     
@@ -118,6 +119,7 @@ server <- function(input, output, session){
     }
   })
   
+  #draw rectangle button pressed
   observeEvent(input$drawRectangle,{
     runjs("
       if (myMap == null) {
@@ -125,20 +127,9 @@ server <- function(input, output, session){
       }
       let polygonDrawer = new L.Draw.Rectangle(myMap);
       
-      console.log(window.shape);
-      if(window.shape != null){
-          console.log('Shape Removed');
-          window.shape.remove();
-      }
-
-      // Assumming you have a Leaflet map accessible
-      myMap.on('draw:created', function (e) {
-          var type = e.layerType,
-              layer = e.layer;
-              
-          window.shape = layer;
-          layer.addTo(myMap);
-      });
+      polygonDrawer.options.shapeOptions.stroke = false;
+      polygonDrawer.options.shapeOptions.fillColor = '#777';
+      polygonDrawer.options.shapeOptions.fillOpacity = 0.5;
       
       polygonDrawer.enable();
     ")
