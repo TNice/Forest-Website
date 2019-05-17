@@ -80,14 +80,14 @@ compareCells <- function(cords){
   maxLat <-cords[[2]][[1]]
   maxLong <- cords[[2]][[2]]
   counter <- 0
-  print(cells@polygons[[1]]@labpt)
+  #print(cells@polygons[[1]]@labpt)
   for(C in cells@polygons){
     counter <- counter + 1
     myCords <- C@Polygons[[1]]@coords
     for(P in 1:nrow(myCords)){
       if(minLat < myCords[P,1] && myCords[P,1] < maxLat && minLong < myCords[P, 2] && myCords[P,2] < maxLong){
-        append(cellArray, counter)
-        break;
+        cellArray <- append(cellArray, counter)
+        break
       }
     }
   }

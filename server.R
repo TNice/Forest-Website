@@ -103,11 +103,13 @@ server <- function(input, output, session){
   #could be used to edit or see a single county
   observeEvent(input$map_shape_click, {
     id <- input$map_shape_click$id
-    #print(id)
+    print(id)
   })
   
   #when new shape is drawn
   observeEvent(input$map_draw_new_feature, {
+    runjs("polygonDrawer = null;")
+    
     feature_type <- input$map_draw_new_feature$properties$feature_type
     
     if(feature_type %in% c("rectangle")) {
@@ -115,23 +117,38 @@ server <- function(input, output, session){
       shapeBounds <- input$map_draw_new_feature$geometry$coordinates[[1]]
       cords = c(shapeBounds[1], shapeBounds[3])
       cellResults <- compareCells(cords)
-      #print(cellResults)
+      print(cellResults)
     }
+  })
+  
+  observeEvent(input$clearSelection, {
+    runjs("window.shape.remove();")
   })
   
   #draw rectangle button pressed
   observeEvent(input$drawRectangle,{
     runjs("
-      if (myMap == null) {
-          myMap = mapsPlaceholder.pop();
+      if(polygonDrawer == null){
+        if (myMap == null) {
+            myMap = mapsPlaceholder.pop();
+        }
+        
+        myMap.on('draw:created', function(e){
+          window.shape = e.layer;
+        })
+        
+        polygonDrawer = new L.Draw.Rectangle(myMap);
+        
+        polygonDrawer.options.shapeOptions.stroke = false;
+        polygonDrawer.options.shapeOptions.fillColor = '#777';
+        polygonDrawer.options.shapeOptions.fillOpacity = 0.5;
+        
+        polygonDrawer.enable();
       }
-      let polygonDrawer = new L.Draw.Rectangle(myMap);
-      
-      polygonDrawer.options.shapeOptions.stroke = false;
-      polygonDrawer.options.shapeOptions.fillColor = '#777';
-      polygonDrawer.options.shapeOptions.fillOpacity = 0.5;
-      
-      polygonDrawer.enable();
+      else{
+        polygonDrawer.disable();
+        polygonDrawer = null;
+      }
     ")
   })
 }
